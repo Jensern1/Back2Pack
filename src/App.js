@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import firebase from './sources/firebase.js';
 import './App.css';
 
 function App() {
