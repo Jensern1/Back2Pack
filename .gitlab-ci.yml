@@ -24,6 +24,7 @@ before_script:
   - apt-get install -y nodejs
   - apt-get install -y yarn
   - yarn --version
+  - ls
   
 stages:          # List of stages for jobs, and their order of execution
   - build
