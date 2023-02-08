@@ -1,9 +1,27 @@
 .test {
-    background-color: green;
-    color: red;
+    background-color: gray;
+    display: flex;
+    height: 60px;
+
+    *{
+        padding-right: 30px;
+    }
     
     p {
         color: blue
+    }
+
+    .gul {
+        color: yellow
+    }
+
+    div {
+        background-color: white;
+        height: 40px;
+        margin-top: 10px;
+
+        position: absolute;
+        right: 10px;
     }
 }
 

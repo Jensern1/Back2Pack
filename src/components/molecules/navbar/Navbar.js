@@ -5,8 +5,10 @@ import style from './Navbar.module.scss';
 const Navbar = () => {
   return (
     <Box className={style.test}>
-      Backpack
-      <p>test</p>
+      <h1>Backpack</h1>
+      <p>Home</p>
+      <p className={style.gul}>User</p>
+      <div>username</div>
     </Box>
   );
 };
