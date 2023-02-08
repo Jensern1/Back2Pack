@@ -24,8 +24,6 @@ before_script:
   - apt-get install -y nodejs
   - apt-get install -y yarn
   - yarn --version
-  - bundle install --path /cache
-  - bundle exec rails webpacker:install
   
 stages:          # List of stages for jobs, and their order of execution
   - build
@@ -36,7 +34,7 @@ build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - echo "installing dependencies..."
-    - npm i yarn
+    - yarn
     - echo "install complete!"
     - echo "Compiling the code..."
     - yarn build
