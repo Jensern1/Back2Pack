@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import firebase from './sources/firebase.js';
 import './App.css';
+import Navbar from './components/navbar.js';
 
 function App() {
   return (
     <div className="App">
+      <Navbar></Navbar>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
