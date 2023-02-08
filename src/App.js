@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import firebase from './sources/firebase.js';
 import './App.scss';
 import Navbar from './components/molecules/navbar/Navbar.js';

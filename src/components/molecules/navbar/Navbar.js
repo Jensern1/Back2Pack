@@ -1,9 +1,14 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import './Navbar.scss';
+import style from './Navbar.module.scss';
 
 const Navbar = () => {
-  return <Box>Backpack</Box>;
+  return (
+    <Box className={style.test}>
+      Backpack
+      <p>test</p>
+    </Box>
+  );
 };
 
 export default Navbar;
