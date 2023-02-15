@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from "firebase";
+import firebase from "./../sources/firebase.js";
 
 export const useGetData = () => {
   const [documents, setDocuments] = React.useState([]);
