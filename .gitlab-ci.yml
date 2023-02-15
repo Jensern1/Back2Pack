@@ -16,16 +16,6 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
-image: "ruby:2.6"
-
-before_script:
-  - ruby -v
-  - apt-get update -qy
-  - apt-get install -y nodejs
-  - apt-get install -y yarn
-  - yarn --version
-  - ls
-  
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
@@ -34,18 +24,17 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - echo "installing dependencies..."
-    - yarn
-    - echo "install complete!"
     - echo "Compiling the code..."
-    - yarn build
-    - echo "Compile complete!"
+    - npm i
+    - npm build
+    - echo "Compile complete."
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
-    - echo "Running unit tests..."
-    - echo "Error, sett upp CI/CD first!"
+    - echo "Running unit tests... This will take about 60 seconds."
+    - sleep 60
+    - echo "Code coverage is 90%"
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
@@ -59,4 +48,7 @@ deploy-job:      # This job runs in the deploy stage.
   environment: production
   script:
     - echo "Deploying application..."
-    - echo "No deployment sett up!"
+    - echo "Application successfully deployed."
+
+
+
