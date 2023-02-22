@@ -1,12 +1,14 @@
+import React, { useState } from 'react';
 import { db, addTrip } from "./sources/firebase.js";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
 import Feed from "./components/molecules/feed/Feed.js";
 import AddBtn from "./components/molecules/addBtn/AddBtn.js";
-import React from "react";
 import image1 from "./assets/mountain.jpg";
 import image2 from "./assets/beach.jpg";
+import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
+
 
 //import Add from "./components/molecules/add/Add.js";
 //import { initializeApp } from "firebase/app";
@@ -35,15 +37,7 @@ function App() {
   //const collectionTrips = collection(db, "Turer");
 
   // get collection data
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addTrip(event.target);
-
-    event.target.reset();
-  };
-
-  const trips = [
+  const trips1 = [
     {
       username: "John Doe",
       tripName: "Hiking in the Mountains",
@@ -86,14 +80,43 @@ function App() {
       description:
         "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
     },
-    
   ];
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addTrip(event.target);
+
+    event.target.reset();
+  };
+
+  
+
+  const [trips, setTrips] = useState(trips1);
+  const [showNewTripForm, setShowNewTripForm] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleAddTrip = (newTrip) => {
+     // Create a temporary URL for the new trip image
+  const imageUrl = URL.createObjectURL(newTrip.image);
+
+  // Add the new trip to the trips array
+  setTrips([...trips, { ...newTrip, image: imageUrl }]);
+
+  // Set the selected image to the new trip image
+  setSelectedImage({ ...newTrip, image: imageUrl });
+  setTimeout(() => setSelectedImage(null), 500); // clear selectedImage after 500ms
+  };
+
+  
 
   return (
     <div className="App">
       <Navbar></Navbar>
       <Feed trips={trips} />
-      <AddBtn></AddBtn>
+      <AddBtn onClick={() => setShowNewTripForm(true)} />
+      {showNewTripForm && <NewTripForm onClose={() => setShowNewTripForm(false)} onAddTrip={handleAddTrip} />}
+      {selectedImage && selectedImage.username && selectedImage.tripName && selectedImage.description && selectedImage.image && 
+        <Trip username={selectedImage.username} tripName={selectedImage.tripName} image={selectedImage.image} description={selectedImage.description} />
+      }
     </div>
   );
 }

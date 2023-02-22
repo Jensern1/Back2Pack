@@ -1,7 +1,11 @@
 import React from "react";
 import style from "./Trip.module.scss";
 
+
 function Trip({ username, tripName, image, description }) {
+  console.log("Rendering trip:", { username, tripName, image, description });
+
+
   return (
     <div className={style.trip}>
       <div className={style["trip-header"]}>
@@ -18,39 +22,5 @@ function Trip({ username, tripName, image, description }) {
     </div>
   );
 }
-
-
-// import { Grid, GridItem, Box, Image, Text } from "@chakra-ui/react";
-
-// function Trip({ username, tripName, image, description }) {
-//   return (
-//     <Grid className={style.trip}
-//       templateColumns="repeat(2, 1fr)"
-//       gap={6}
-//       borderWidth="1px"
-//       borderRadius="md"
-//       overflow="hidden"
-//       padding="4"
-//     >
-//       <GridItem colSpan={1}>
-//         <Box className={style["trip-header"]}>
-//           <Text fontSize="xl" fontWeight="bold">
-//             {tripName}
-//           </Text>
-//           <Text color="gray.500">by {username}</Text>
-//         </Box>
-//       </GridItem>
-//       <GridItem colSpan={1}>
-//         <Image src={image} alt={tripName} borderRadius="md" />
-//       </GridItem>
-//       <GridItem colSpan={2}>
-//         <Text mt="4" fontSize="md">
-//           {description}
-//         </Text>
-//       </GridItem>
-//     </Grid>
-//   );
-// }
-
 
 export default Trip;

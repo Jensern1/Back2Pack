@@ -2,7 +2,11 @@ import React from 'react';
 import { AddIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 
-const AddBtn = () => {
+const AddBtn = ({ onClick }) => {
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
     <IconButton
       colorScheme='teal'
@@ -10,6 +14,7 @@ const AddBtn = () => {
       size='lg'
       isRound='true'
       icon={<AddIcon />}
+      onClick={handleClick}
     />
   );
 };
