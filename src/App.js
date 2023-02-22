@@ -2,7 +2,11 @@ import { db, addTrip } from "./sources/firebase.js";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
-
+import Feed from "./components/molecules/feed/Feed.js";
+import React from "react";
+// import Feed from "./Feed";
+import image1 from "./assets/mountain.jpg";
+import image2 from "./assets/beach.jpg";
 //import Add from "./components/molecules/add/Add.js";
 //import { initializeApp } from "firebase/app";
 //import { getFirestore, collection, getDocs } from "firebase/firestore";
@@ -38,25 +42,59 @@ function App() {
     event.target.reset();
   };
 
-  return (
-    <>
-      <p>test2</p>
-      <div className="App">
-        <p>test</p>
-        <Navbar></Navbar>
-        <Trip></Trip>
-        <h2> Add Trip</h2>
-        <form className="Add" onSubmit={handleSubmit}>
-          <label htmlFor="title">Tittel:</label>
-          <input type="text" name="Tittel" required></input>
-          <label htmlFor="description"> Beskrivelse:</label>
-          <input type="text" name="Beskrivelse" required></input>
+  const trips = [
+    {
+      username: "John Doe",
+      tripName: "Hiking in the Mountains",
+      image: image1,
+      description:
+        "I had a great time hiking in the mountains. The views were breathtaking!",
+    },
+    {
+      username: "Jane Doe",
+      tripName: "Beach Vacation",
+      image: image2,
+      description:
+        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
+    },
+    {
+      username: "Jane Doe",
+      tripName: "Beach Vacation",
+      image: image2,
+      description:
+        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
+    },
+    {
+      username: "Jane Doe",
+      tripName: "Beach Vacation",
+      image: image2,
+      description:
+        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
+    },
+    {
+      username: "Jane Doe",
+      tripName: "Beach Vacation",
+      image: image2,
+      description:
+        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
+    },
+    {
+      username: "Jane Doe",
+      tripName: "Beach Vacation",
+      image: image2,
+      description:
+        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
+    },
+    
+  ];
 
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </>
+  return (
+    <div className="App">
+      <Navbar></Navbar>
+      <Feed trips={trips} />
+    </div>
   );
 }
 
 export default App;
+
