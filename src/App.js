@@ -1,14 +1,15 @@
-import db from "./sources/firebase.js";
+import { db, addTrip } from "./sources/firebase.js";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
-//import Add from "./components/molecules/add/Add.js";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-//import firebase from "firebase/app";
-import { doc, setDoc } from "firebase/firestore";
 
-async function App() {
+//import Add from "./components/molecules/add/Add.js";
+//import { initializeApp } from "firebase/app";
+//import { getFirestore, collection, getDocs } from "firebase/firestore";
+//import firebase from "firebase/app";
+//import { doc, setDoc } from "firebase/firestore";
+
+function App() {
   console.log("test");
 
   const config = {
@@ -22,15 +23,20 @@ async function App() {
   };
 
   // Initialize Firebase
-  const app = initializeApp(config);
-  const db = getFirestore(app);
+  //const app = initializeApp(config);
+  //const db = getFirestore(app);
 
-  await setDoc(doc(db, "Turer", "Ny tur"), {
-    Tittel: "test",
-    Beskrivelse: "hefra til dit",
-  });
+  // collection ref
+  //const collectionTrips = collection(db, "Turer");
 
-  //const db2 = firebase.firestore();
+  // get collection data
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addTrip(event.target);
+
+    event.target.reset();
+  };
 
   return (
     <>
@@ -39,6 +45,15 @@ async function App() {
         <p>test</p>
         <Navbar></Navbar>
         <Trip></Trip>
+        <h2> Add Trip</h2>
+        <form className="Add" onSubmit={handleSubmit}>
+          <label htmlFor="title">Tittel:</label>
+          <input type="text" name="Tittel" required></input>
+          <label htmlFor="description"> Beskrivelse:</label>
+          <input type="text" name="Beskrivelse" required></input>
+
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </>
   );
