@@ -4,11 +4,13 @@ import style from './Navbar.module.scss';
 
 const Navbar = () => {
   return (
-    <Box className={style.test}>
-      <h1>Backpack</h1>
-      <p>Home</p>
-      <p className={style.gul}>User</p>
-      <div>username</div>
+    <Box className={style.nav}>
+      <div>
+        <h1>Back2pack</h1>
+        <p>Home</p>
+        <p>User</p>
+      </div>
+      <p>username</p>
     </Box>
   );
 };
