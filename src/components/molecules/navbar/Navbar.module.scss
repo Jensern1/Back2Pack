@@ -1,0 +1,19 @@
+.nav {
+    background-color: gray;
+    height: 70px;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+
+    div {
+        display: flex;
+
+        *{
+            padding-left: 10px;
+        }
+    }
+}
+
+p{
+    margin: 2.5em;
+}
+
