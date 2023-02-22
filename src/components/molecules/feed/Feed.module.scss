@@ -1,0 +1,13 @@
+.feed {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  grid-gap: 20px;
+  width: 80%;
+  margin-top: 20px;
+}

@@ -1,0 +1,54 @@
+
+.trip {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  margin: 20px;
+  overflow: hidden;
+  border-radius: 15px;
+  border-width: 2px;
+}
+
+.trip-header {
+  padding: 5px;
+  height: 15%;
+  font-size: 12px;
+  border: 1px solid black;
+}
+
+.trip-images {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  overflow: hidden;
+  max-height: 80%;
+  border: 1px solid black;
+}
+
+.trip-image {
+  height: 90%;
+  width: auto;
+  object-fit: cover;
+  flex: 1 1 25%;
+  margin: 5px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  max-width: 100%;
+}
+
+.trip-description {
+  height: 15%;
+  overflow: auto;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid black;
+  position: relative;
+  padding: 7px;
+  text-align: center;
+  vertical-align: top;
+  // top: -1px;
+}
