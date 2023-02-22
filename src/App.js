@@ -3,10 +3,11 @@ import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
 import Feed from "./components/molecules/feed/Feed.js";
+import AddBtn from "./components/molecules/addBtn/AddBtn.js";
 import React from "react";
-// import Feed from "./Feed";
 import image1 from "./assets/mountain.jpg";
 import image2 from "./assets/beach.jpg";
+
 //import Add from "./components/molecules/add/Add.js";
 //import { initializeApp } from "firebase/app";
 //import { getFirestore, collection, getDocs } from "firebase/firestore";
@@ -92,6 +93,7 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       <Feed trips={trips} />
+      <AddBtn></AddBtn>
     </div>
   );
 }
