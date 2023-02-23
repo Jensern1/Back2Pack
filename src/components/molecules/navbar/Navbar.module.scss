@@ -1,19 +1,40 @@
-.nav {
-    background-color: gray;
-    height: 70px;
-    display: grid;
-    grid-template-columns: 1fr 200px;
+.navbar {
+  background-color: #1e212d;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
 
-    div {
-        display: flex;
+  img {
+    margin-right: 10px;
+  }
 
-        *{
-            padding-left: 10px;
-        }
+  .chakra-button {
+    color: white;
+    background-color: green;
+    border: none;
+    border-radius: 0;
+    font-size: 1em;
+    padding: 0.5em 0.8em;
+
+    &:hover {
+      background-color: white;
+      color: #1e212d;
     }
-}
+  }
 
-p{
-    margin: 2.5em;
-}
+  .chakra-button-left-icon {
+    margin-right: 0.3em;
+    margin-top: 0.2em;
+  }
 
+  p {
+    color: #fff;
+    margin: 0;
+  }
+
+  img:last-of-type {
+    margin-left: 10px;
+  }
+}

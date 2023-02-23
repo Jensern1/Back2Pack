@@ -88,8 +88,6 @@ function App() {
     event.target.reset();
   };
 
-  
-
   const [trips, setTrips] = useState(trips1);
   const [showNewTripForm, setShowNewTripForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -103,10 +101,8 @@ function App() {
 
   // Set the selected image to the new trip image
   setSelectedImage({ ...newTrip, image: imageUrl });
-  setTimeout(() => setSelectedImage(null), 500); // clear selectedImage after 500ms
+  setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
   };
-
-  
 
   return (
     <div className="App">
