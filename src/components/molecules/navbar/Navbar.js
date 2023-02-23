@@ -8,7 +8,7 @@ const Navbar = () => {
     <Box className={styles.navbar}>
       <Flex alignItems="center" flex="1">
       <Box>
-        <Text fontSize="2xl" fontFamily="cursive">BackToPack</Text>
+        <Text fontSize="2xl" fontFamily="cursive">Back2Pack</Text>
       </Box>
         <Button variant="ghost" leftIcon={<AiOutlineHome />} size="sm" mr={2}>
           Home
