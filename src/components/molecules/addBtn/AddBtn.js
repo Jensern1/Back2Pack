@@ -1,6 +1,7 @@
 import React from 'react';
-import { AddIcon } from '@chakra-ui/icons';
-import { IconButton } from '@chakra-ui/react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { IconButton, Box, Text } from '@chakra-ui/react';
+import styles from './AddBtn.module.scss';
 
 const AddBtn = ({ onClick }) => {
   const handleClick = () => {
@@ -12,11 +13,14 @@ const AddBtn = ({ onClick }) => {
       colorScheme='teal'
       aria-label='addBtn'
       size='lg'
-      isRound='true'
-      icon={<AddIcon />}
-      onClick={handleClick}
-    />
+      icon={<AiOutlinePlus />}
+      className={styles.addButton}
+      onClick={() => handleClick()}
+    >
+      Create a new Button
+    </IconButton>
   );
 };
+
 
 export default AddBtn;

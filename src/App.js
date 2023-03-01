@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { db, addTrip } from "./sources/firebase.js";
+import { addTrip } from "./sources/firebase.js";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
@@ -16,6 +16,7 @@ import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
 //import firebase from "firebase/app";
 //import { doc, setDoc } from "firebase/firestore";
 
+
 function App() {
   console.log("test");
 
@@ -29,7 +30,7 @@ function App() {
     measurementId: "G-YG9HM34W3G",
   };
 
-  // Initialize Firebase
+    // Initialize Firebase
   //const app = initializeApp(config);
   //const db = getFirestore(app);
 
@@ -37,7 +38,10 @@ function App() {
   //const collectionTrips = collection(db, "Turer");
 
   // get collection data
-  const trips1 = [
+
+
+
+  const exampletrips = [
     {
       username: "John Doe",
       tripName: "Hiking in the Mountains",
@@ -51,36 +55,9 @@ function App() {
       image: image2,
       description:
         "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
+    },    
   ];
+
   const handleSubmit = (event) => {
     event.preventDefault();
     addTrip(event.target);
@@ -88,34 +65,45 @@ function App() {
     event.target.reset();
   };
 
-  const [trips, setTrips] = useState(trips1);
+  const [trips, setTrips] = useState(exampletrips);
   const [showNewTripForm, setShowNewTripForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleAddTrip = (newTrip) => {
-     // Create a temporary URL for the new trip image
-  const imageUrl = URL.createObjectURL(newTrip.image);
+    // Create a temporary URL for the new trip image
+    const imageUrl = URL.createObjectURL(newTrip.image);
 
-  // Add the new trip to the trips array
-  setTrips([...trips, { ...newTrip, image: imageUrl }]);
+    // Add the new trip to the trips array
+    setTrips([...trips, { ...newTrip, image: imageUrl }]);
 
-  // Set the selected image to the new trip image
-  setSelectedImage({ ...newTrip, image: imageUrl });
-  setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
+    // Set the selected image to the new trip image
+    setSelectedImage({ ...newTrip, image: imageUrl });
+    setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
   };
 
   return (
     <div className="App">
-      <Navbar></Navbar>
+      <Navbar onAddTrip={() => setShowNewTripForm(true)}>
+        <AddBtn />
+      </Navbar>
       <Feed trips={trips} />
-      <AddBtn onClick={() => setShowNewTripForm(true)} />
-      {showNewTripForm && <NewTripForm onClose={() => setShowNewTripForm(false)} onAddTrip={handleAddTrip} />}
-      {selectedImage && selectedImage.username && selectedImage.tripName && selectedImage.description && selectedImage.image && 
-        <Trip username={selectedImage.username} tripName={selectedImage.tripName} image={selectedImage.image} description={selectedImage.description} />
-      }
+      {showNewTripForm && (
+        <NewTripForm
+          onClose={() => setShowNewTripForm(false)}
+          onAddTrip={handleAddTrip}
+          setSelectedImage={setSelectedImage}
+        />
+      )}
+      {selectedImage && selectedImage.username && selectedImage.tripName && selectedImage.description && selectedImage.image && (
+        <Trip
+          username={selectedImage.username}
+          tripName={selectedImage.tripName}
+          image={selectedImage.image}
+          description={selectedImage.description}
+        />
+      )}
     </div>
   );
 }
 
 export default App;
-
