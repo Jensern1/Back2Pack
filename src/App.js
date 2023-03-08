@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { db, addTrip } from "./sources/firebase.js";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
@@ -10,11 +10,11 @@ import image2 from "./assets/beach.jpg";
 import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
 
 
-//import Add from "./components/molecules/add/Add.js";
-//import { initializeApp } from "firebase/app";
-//import { getFirestore, collection, getDocs } from "firebase/firestore";
-//import firebase from "firebase/app";
-//import { doc, setDoc } from "firebase/firestore";
+// import Add from "./components/molecules/add/Add.js";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import firebase from "firebase/app";
+import { doc, setDoc } from "firebase/firestore";
 
 function App() {
   console.log("test");
@@ -30,13 +30,30 @@ function App() {
   };
 
   // Initialize Firebase
-  //const app = initializeApp(config);
-  //const db = getFirestore(app);
+  const app = initializeApp(config);
+  const db = getFirestore(app);
 
   // collection ref
-  //const collectionTrips = collection(db, "Turer");
+  const collectionTrips = collection(db, "Turer");
 
   // get collection data
+  const [turer, setTurer] = useState([]);
+  useEffect(() => {
+    getDocs(collectionTrips)
+    .then((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      const gg =[]
+      gg.push({ ...doc.data(), id: doc.id });
+      setTurer(gg);
+      // console.log(turer);
+    });
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+  });
+  
+
   const trips1 = [
     {
       username: "John Doe",
@@ -52,43 +69,17 @@ function App() {
       description:
         "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
     },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },
+
+ 
   ];
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addTrip(event.target);
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   addTrip(event.target);
 
-    event.target.reset();
-  };
+  //   event.target.reset();
+  // };
 
-  const [trips, setTrips] = useState(trips1);
+  const [trips, setTrips] = useState(turer);
   const [showNewTripForm, setShowNewTripForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -107,7 +98,7 @@ function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-      <Feed trips={trips} />
+      <Feed trips={turer} />
       <AddBtn onClick={() => setShowNewTripForm(true)} />
       {showNewTripForm && <NewTripForm onClose={() => setShowNewTripForm(false)} onAddTrip={handleAddTrip} />}
       {selectedImage && selectedImage.username && selectedImage.tripName && selectedImage.description && selectedImage.image && 

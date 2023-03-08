@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { db, addTrip } from "../../../sources/firebase.js";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@chakra-ui/react';
 import style from './NewTripForm.module.scss';
 
@@ -22,7 +23,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
     // This will depend on how you are currently managing the list of trips
     // For example, you might have a function in App that updates the state
     // with the new trip
-    onAddTrip(newTrip);
+    addTrip(newTrip);
 
     // Pass the image data to App component
     setSelectedImage(image);

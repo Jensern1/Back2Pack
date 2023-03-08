@@ -9,7 +9,7 @@ function Feed(props) {
   return (
     <div className={style.feed}>
       <div className={style.container}>
-        {trips.length > 0 && trips.map((trip, index) => (
+        {trips.map((trip, index) => (
           <Trip
             key={index}
             username={trip.username}

@@ -33,31 +33,35 @@ const collectionTrips = collection(db, "Turer");
 
 // get collection data
 
-getDocs(collectionTrips)
-  .then((snapshot) => {
-    let turer = [];
-    snapshot.docs.forEach((doc) => {
-      turer.push({ ...doc.data(), id: doc.id });
-    });
-    console.log(turer);
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+// getDocs(collectionTrips)
+//   .then((snapshot) => {
+//     let turer = [];
+//     snapshot.docs.forEach((doc) => {
+//       turer.push({ ...doc.data(), id: doc.id });
+//     });
+//     console.log(turer);
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
 
 // add trip
 
 function addTrip(data) {
   //const addTripForm = document.querySelector(".add");
   //e.preventDefault();
-
+ 
   if (data) {
+    // console.log("testprint");
+    // console.log(data);
     addDoc(collectionTrips, {
-      title: data.Tittel.value,
-      description: data.Beskrivelse.value,
+      title: data.tripName,
+      description: data.description,
+      //image: data.image,
+      username: data.username
     });
   }
-}
+} 
 
 //export default firebase;
 export { addTrip, db };
