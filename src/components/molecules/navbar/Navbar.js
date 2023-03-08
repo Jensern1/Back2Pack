@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Flex, Button, Image, Text} from '@chakra-ui/react';
 import { AiOutlineHome, AiOutlineUser, AiOutlinePlus } from 'react-icons/ai';
 import styles from './Navbar.module.scss';
-import AddBtn from '../addBtn/AddBtn';
+import AddBtn from '../../atoms/addBtn/AddBtn';
 
 const Navbar = ({ onAddTrip }) => {
   return (
