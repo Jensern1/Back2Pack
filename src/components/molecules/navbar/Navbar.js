@@ -1,38 +1,92 @@
-import React from 'react';
-import { Box, Flex, Button, Image, Text} from '@chakra-ui/react';
-import { AiOutlineHome, AiOutlineUser, AiOutlinePlus } from 'react-icons/ai';
-import styles from './Navbar.module.scss';
-import AddBtn from '../../atoms/addBtn/AddBtn';
+import React from "react";
+import { useRef } from "react";
+import { useMediaQuery } from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+} from "@chakra-ui/react";
+import { Box, Flex, Button, Text, Input, IconButton } from "@chakra-ui/react";
+import {
+  AiOutlineHome,
+  AiOutlineUser,
+  AiOutlineSearch,
+  AiOutlinePlus,
+} from "react-icons/ai";
+import { HamburgerIcon, AddIcon } from "@chakra-ui/icons";
+import styles from "./Navbar.module.scss";
+import AddBtn from "../../atoms/addBtn/AddBtn";
 
 const Navbar = ({ onAddTrip }) => {
+  const [phone] = useMediaQuery("(max-width: 800px)");
+
   return (
     <Box className={styles.navbar}>
-      <Flex alignItems="center" justifyContent="center">
-        <Box>
-          <Text fontSize="2xl" fontFamily="cursive">BackToPack</Text>
-        </Box>
-        <Button variant="ghost" leftIcon={<AiOutlineHome />} size="sm" mr={2}>
-          Home
-        </Button>
-        <Button variant="ghost" leftIcon={<AiOutlineUser />} size="sm">
-          User
-        </Button>
-      </Flex>
-      <Box margin="0 auto">
-        <AddBtn
-          colorScheme='teal'
-          aria-label='addBtn'
-          size='lg'
-          icon={<AiOutlinePlus />}
-          onClick={() => onAddTrip(true)}
-        />
-      </Box>
-      <Flex alignItems="center">
-        <Box bg="#ffffff" borderRadius="full" p={1} mr={2}>
-          <AiOutlineUser size={20} color="#1e212d" />
-        </Box>
-        <p>username</p>
-      </Flex>
+      {phone ? (
+        <Flex alignItems="center" justifyContent={"space-between"} flex="1">
+          <Text fontSize="2xl" fontFamily="cursive">
+            Back2Pack
+          </Text>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
+            />
+            <MenuList>
+              <MenuItem icon={<AddIcon />} command="⌘T">
+                New Tab
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      ) : (
+        <>
+          <Flex alignItems="center" flex="1">
+            <Box>
+              <Text fontSize="2xl" fontFamily="cursive">
+                Back2Pack
+              </Text>
+            </Box>
+            <Button variant="ghost" leftIcon={<AiOutlineHome />} size="sm">
+              Home
+            </Button>
+            <Button variant="ghost" leftIcon={<AiOutlineUser />} size="sm">
+              User
+            </Button>
+          </Flex>
+          <Input placeholder="Search" size="md" />
+          <IconButton
+            variant="outline"
+            colorScheme="teal"
+            mr={2}
+            aria-label="Search database"
+            icon={<AiOutlineSearch />}
+          />
+          <Box mr="5">
+            <AddBtn
+              colorScheme="teal"
+              aria-label="addBtn"
+              size="lg"
+              mr={10}
+              icon={<AiOutlinePlus />}
+              onClick={() => onAddTrip(true)}
+            />
+          </Box>
+          <Flex alignItems="center">
+            <Box bg="#ffffff" borderRadius="full" p={1} mr={2}>
+              <AiOutlineUser size={20} color="#1e212d" />
+            </Box>
+            <Text fontSize="sm">Username</Text>
+          </Flex>
+        </>
+      )}
     </Box>
   );
 };

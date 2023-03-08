@@ -4,7 +4,7 @@ import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
 import Feed from "./components/molecules/feed/Feed.js";
-import AddBtn from "./components/molecules/addBtn/AddBtn.js";
+import AddBtn from "./components/atoms/addBtn/AddBtn.js";
 import image1 from "./assets/mountain.jpg";
 import image2 from "./assets/beach.jpg";
 import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
@@ -30,7 +30,7 @@ function App() {
     measurementId: "G-YG9HM34W3G",
   };
 
-    // Initialize Firebase
+  // Initialize Firebase
   //const app = initializeApp(config);
   //const db = getFirestore(app);
 

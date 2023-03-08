@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { IconButton, Box, Text } from '@chakra-ui/react';
-import styles from './AddBtn.module.scss';
+// import styles from './AddBtn.module.scss';
 
 const AddBtn = ({ onClick }) => {
   const handleClick = () => {
@@ -14,7 +14,7 @@ const AddBtn = ({ onClick }) => {
       aria-label='addBtn'
       size='lg'
       icon={<AiOutlinePlus />}
-      className={styles.addButton}
+      // className={styles.addButton}
       onClick={() => handleClick()}
     >
       Create a new Button
