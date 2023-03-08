@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { db, addTrip } from "./sources/firebase.js";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
@@ -7,8 +7,7 @@ import Feed from "./components/molecules/feed/Feed.js";
 import AddBtn from "./components/atoms/addBtn/AddBtn.js";
 import image1 from "./assets/mountain.jpg";
 import image2 from "./assets/beach.jpg";
-import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
-
+import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js";
 
 // import Add from "./components/molecules/add/Add.js";
 import { initializeApp } from "firebase/app";
@@ -38,21 +37,19 @@ function App() {
 
   // get collection data
   const [turer, setTurer] = useState([]);
-  useEffect(() => {
-    getDocs(collectionTrips)
+
+  getDocs(collectionTrips)
     .then((snapshot) => {
-    snapshot.docs.forEach((doc) => {
-      const gg =[]
-      gg.push({ ...doc.data(), id: doc.id });
-      setTurer(gg);
-      // console.log(turer);
+      snapshot.docs.forEach((doc) => {
+        const gg = [];
+        gg.push({ ...doc.data(), id: doc.id });
+        setTurer(gg);
+        // console.log(turer);
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-  });
-  
 
   const trips1 = [
     {
@@ -69,8 +66,6 @@ function App() {
       description:
         "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
     },
-
- 
   ];
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -84,15 +79,15 @@ function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleAddTrip = (newTrip) => {
-     // Create a temporary URL for the new trip image
-  const imageUrl = URL.createObjectURL(newTrip.image);
+    // Create a temporary URL for the new trip image
+    const imageUrl = URL.createObjectURL(newTrip.image);
 
-  // Add the new trip to the trips array
-  setTrips([...trips, { ...newTrip, image: imageUrl }]);
+    // Add the new trip to the trips array
+    setTrips([...trips, { ...newTrip, image: imageUrl }]);
 
-  // Set the selected image to the new trip image
-  setSelectedImage({ ...newTrip, image: imageUrl });
-  setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
+    // Set the selected image to the new trip image
+    setSelectedImage({ ...newTrip, image: imageUrl });
+    setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
   };
 
   return (
@@ -100,13 +95,26 @@ function App() {
       <Navbar></Navbar>
       <Feed trips={turer} />
       <AddBtn onClick={() => setShowNewTripForm(true)} />
-      {showNewTripForm && <NewTripForm onClose={() => setShowNewTripForm(false)} onAddTrip={handleAddTrip} />}
-      {selectedImage && selectedImage.username && selectedImage.tripName && selectedImage.description && selectedImage.image && 
-        <Trip username={selectedImage.username} tripName={selectedImage.tripName} image={selectedImage.image} description={selectedImage.description} />
-      }
+      {showNewTripForm && (
+        <NewTripForm
+          onClose={() => setShowNewTripForm(false)}
+          onAddTrip={handleAddTrip}
+        />
+      )}
+      {selectedImage &&
+        selectedImage.username &&
+        selectedImage.tripName &&
+        selectedImage.description &&
+        selectedImage.image && (
+          <Trip
+            username={selectedImage.username}
+            tripName={selectedImage.tripName}
+            image={selectedImage.image}
+            description={selectedImage.description}
+          />
+        )}
     </div>
   );
 }
 
 export default App;
-
