@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { db, addTrip } from "../../../sources/firebase.js";
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@chakra-ui/react';
-import style from './NewTripForm.module.scss';
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
+import style from "./NewTripForm.module.scss";
 
 const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
-  const [username, setUsername] = useState('');
-  const [tripName, setTripName] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
+  const [username, setUsername] = useState("");
+  const [tripName, setTripName] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,42 +44,62 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
-    setImage(file);
+    const reader = new FileReader(); // Create a new FileReader object
+
+    reader.onload = (event) => {
+      const imageUrl = event.target.result; // Extract the URL from the FileReader result
+      setImage(imageUrl);
+    };
+
+    reader.readAsDataURL(file); // Read the file as a data URL
   };
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal isOpen onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create a new trip</ModalHeader>
+        <ModalHeader>Add a new trip</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-        <form onSubmit={handleSubmit} className={style.form}>
-        <FormControl className={style.formControl}>
-            <FormLabel>Username</FormLabel>
-            <Input value={username} onChange={(event) => setUsername(event.target.value)} className={style.input} />
-        </FormControl>
-        <FormControl className={style.formControl}>
-            <FormLabel>Trip name</FormLabel>
-            <Input value={tripName} onChange={(event) => setTripName(event.target.value)} className={style.input} />
-        </FormControl>
-        <FormControl className={style.formControl}>
-            <FormLabel>Image</FormLabel>
-            <Input type="file" onChange={handleImageChange} accept="image/*" className={style.input} />
-            {image && (
-            <img src={URL.createObjectURL(image)} alt="Selected photo" height="100" className={style.image} />
-            )}
-        </FormControl>
-        <FormControl className={style.formControl}>
-            <FormLabel>Description</FormLabel>
-            <Input value={description} onChange={(event) => setDescription(event.target.value)} className={style.input} />
-        </FormControl>
-        <Button mt={4} colorScheme="teal" type="submit" className={style.button}>
-            Create trip
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <ModalBody>
+            <FormControl>
+              <FormLabel>Username</FormLabel>
+              <Input
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                required
+              />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Trip name</FormLabel>
+              <Input
+                type="text"
+                value={tripName}
+                onChange={(event) => setTripName(event.target.value)}
+                required
+              />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Image</FormLabel>
+              <Input type="file" onChange={handleImageChange} required />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Description</FormLabel>
+              <Input
+                type="text"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                required
+              />
+            </FormControl>
+          </ModalBody>
+
+          <Button type="submit">Add trip</Button>
         </form>
-        </ModalBody>
       </ModalContent>
     </Modal>
   );

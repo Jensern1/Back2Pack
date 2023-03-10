@@ -50,18 +50,18 @@ const collectionTrips = collection(db, "Turer");
 function addTrip(data) {
   //const addTripForm = document.querySelector(".add");
   //e.preventDefault();
- 
+
   if (data) {
     // console.log("testprint");
     // console.log(data);
     addDoc(collectionTrips, {
       title: data.tripName,
       description: data.description,
-      //image: data.image,
-      username: data.username
+      image: data.image,
+      username: data.username,
     });
   }
-} 
+}
 
 //export default firebase;
 export { addTrip, db };
