@@ -10,36 +10,18 @@ import image2 from "./assets/beach.jpg";
 import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
 
 
-//import Add from "./components/molecules/add/Add.js";
-//import { initializeApp } from "firebase/app";
-//import { getFirestore, collection, getDocs } from "firebase/firestore";
-//import firebase from "firebase/app";
-//import { doc, setDoc } from "firebase/firestore";
-
-
 function App() {
   console.log("test");
 
   const config = {
-    apiKey: "AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg",
-    authDomain: "pu-backpakking.firebaseapp.com",
-    projectId: "pu-backpakking",
-    storageBucket: "pu-backpakking.appspot.com",
-    messagingSenderId: "634044469514",
-    appId: "1:634044469514:web:fdeca9d99765d2d4f8eaf3",
-    measurementId: "G-YG9HM34W3G",
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID",
+    measurementId: "YOUR_MEASUREMENT_ID",
   };
-
-  // Initialize Firebase
-  //const app = initializeApp(config);
-  //const db = getFirestore(app);
-
-  // collection ref
-  //const collectionTrips = collection(db, "Turer");
-
-  // get collection data
-
-
 
   const exampletrips = [
     {
@@ -48,6 +30,9 @@ function App() {
       image: image1,
       description:
         "I had a great time hiking in the mountains. The views were breathtaking!",
+      price: 100,
+      length: 5,
+      rating: 4,
     },
     {
       username: "Jane Doe",
@@ -55,7 +40,10 @@ function App() {
       image: image2,
       description:
         "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-    },    
+      price: 200,
+      length: 7,
+      rating: 5,
+    },
   ];
 
   const handleSubmit = (event) => {
@@ -100,6 +88,9 @@ function App() {
           tripName={selectedImage.tripName}
           image={selectedImage.image}
           description={selectedImage.description}
+          price={selectedImage.price}
+          length={selectedImage.length}
+          rating={selectedImage.rating}
         />
       )}
     </div>

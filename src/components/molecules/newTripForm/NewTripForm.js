@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@chakra-ui/react';
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from '@chakra-ui/react';
 import style from './NewTripForm.module.scss';
 
 const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
@@ -7,6 +18,9 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
   const [tripName, setTripName] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [length, setLength] = useState('');
+  const [rating, setRating] = useState(0);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,6 +30,9 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
       tripName: tripName,
       image: image,
       description: description,
+      price: price,
+      length: length,
+      rating: rating,
     };
 
     // Add the new trip to the list of trips
@@ -43,30 +60,48 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
         <ModalHeader>Create a new trip</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-        <form onSubmit={handleSubmit} className={style.form}>
-        <FormControl className={style.formControl}>
-            <FormLabel>Username</FormLabel>
-            <Input value={username} onChange={(event) => setUsername(event.target.value)} className={style.input} />
-        </FormControl>
-        <FormControl className={style.formControl}>
-            <FormLabel>Trip name</FormLabel>
-            <Input value={tripName} onChange={(event) => setTripName(event.target.value)} className={style.input} />
-        </FormControl>
-        <FormControl className={style.formControl}>
-            <FormLabel>Image</FormLabel>
-            <Input type="file" onChange={handleImageChange} accept="image/*" className={style.input} />
-            {image && (
-            <img src={URL.createObjectURL(image)} alt="Selected photo" height="100" className={style.image} />
-            )}
-        </FormControl>
-        <FormControl className={style.formControl}>
-            <FormLabel>Description</FormLabel>
-            <Input value={description} onChange={(event) => setDescription(event.target.value)} className={style.input} />
-        </FormControl>
-        <Button mt={4} colorScheme="teal" type="submit" className={style.button}>
-            Create trip
-        </Button>
-        </form>
+          <form onSubmit={handleSubmit} className={style.form}>
+            <FormControl className={style.formControl}>
+              <FormLabel>Username</FormLabel>
+              <Input value={username} onChange={(event) => setUsername(event.target.value)} className={style.input} />
+            </FormControl>
+            <FormControl className={style.formControl}>
+              <FormLabel>Trip name</FormLabel>
+              <Input value={tripName} onChange={(event) => setTripName(event.target.value)} className={style.input} />
+            </FormControl>
+            <FormControl className={style.formControl}>
+              <FormLabel>Image</FormLabel>
+              <Input type="file" onChange={handleImageChange} accept="image/*" className={style.input} />
+              {image && (
+                <img src={URL.createObjectURL(image)} alt="Selected photo" height="100" className={style.image} />
+              )}
+            </FormControl>
+            <FormControl className={style.formControl}>
+              <FormLabel>Description</FormLabel>
+              <Input value={description} onChange={(event) => setDescription(event.target.value)} className={style.input} />
+            </FormControl>
+            <FormControl className={style.formControl}>
+              <FormLabel>Price</FormLabel>
+              <Input value={price} onChange={(event) => setPrice(event.target.value)} className={style.input} />
+            </FormControl>
+            <FormControl className={style.formControl}>
+              <FormLabel>Length (in days)</FormLabel>
+              <Input value={length} onChange={(event) => setLength(event.target.value)} className={style.input} />
+            </FormControl>
+            <FormControl className={style.formControl}>
+              <FormLabel>Rating</FormLabel>
+              <div className={style.stars}>
+                {[...Array(5)].map((_, index) => (
+                  <span key={index} onClick={() => setRating(index + 1)} className={style.star}>
+                    {index < rating ? '★' : '☆'}
+                  </span>
+                ))}
+              </div>
+            </FormControl>
+            <Button mt={4} colorScheme="teal" type="submit" className={style.button}>
+              Create trip
+            </Button>
+          </form>
         </ModalBody>
       </ModalContent>
     </Modal>
