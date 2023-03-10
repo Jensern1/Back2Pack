@@ -69,10 +69,24 @@ function App() {
       <Navbar></Navbar>
       <Feed trips={turer} />
       <AddBtn onClick={() => setShowNewTripForm(true)} />
-      {showNewTripForm && <NewTripForm onClose={() => setShowNewTripForm(false)} onAddTrip={handleAddTrip} />}
-      {selectedImage && selectedImage.username && selectedImage.tripName && selectedImage.description && selectedImage.image && 
-        <Trip username={selectedImage.username} tripName={selectedImage.tripName} image={selectedImage.image} description={selectedImage.description} />
-      }
+      {showNewTripForm && (
+        <NewTripForm
+          onClose={() => setShowNewTripForm(false)}
+          onAddTrip={handleAddTrip}
+        />
+      )}
+      {selectedImage &&
+        selectedImage.username &&
+        selectedImage.tripName &&
+        selectedImage.description &&
+        selectedImage.image && (
+          <Trip
+            username={selectedImage.username}
+            tripName={selectedImage.tripName}
+            image={selectedImage.image}
+            description={selectedImage.description}
+          />
+        )}
     </div>
   );
 }
