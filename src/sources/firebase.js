@@ -55,7 +55,7 @@ function addTrip(data) {
     // console.log("testprint");
     // console.log(data);
     addDoc(collectionTrips, {
-      title: data.tripName,
+      tripName: data.tripName,
       description: data.description,
       image: data.image,
       username: data.username,
