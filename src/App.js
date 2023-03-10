@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { db, addTrip } from "./sources/firebase.js";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import "./App.scss";
 import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
@@ -9,50 +10,31 @@ import image1 from "./assets/mountain.jpg";
 import image2 from "./assets/beach.jpg";
 import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js"
 
+const config = {
+  apiKey: "AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg",
+  authDomain: "pu-backpakking.firebaseapp.com",
+  projectId: "pu-backpakking",
+  storageBucket: "pu-backpakking.appspot.com",
+  messagingSenderId: "634044469514",
+  appId: "1:634044469514:web:fdeca9d99765d2d4f8eaf3",
+  measurementId: "G-YG9HM34W3G",
+};
 
-// import Add from "./components/molecules/add/Add.js";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import firebase from "firebase/app";
-import { doc, setDoc } from "firebase/firestore";
+const app = initializeApp(config);
+const db = getFirestore(app);
+const collectionTrips = collection(db, "Turer");
 
 function App() {
-  console.log("test");
-
-  const config = {
-    apiKey: "AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg",
-    authDomain: "pu-backpakking.firebaseapp.com",
-    projectId: "pu-backpakking",
-    storageBucket: "pu-backpakking.appspot.com",
-    messagingSenderId: "634044469514",
-    appId: "1:634044469514:web:fdeca9d99765d2d4f8eaf3",
-    measurementId: "G-YG9HM34W3G",
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(config);
-  const db = getFirestore(app);
-
-  // collection ref
-  const collectionTrips = collection(db, "Turer");
-
-  // get collection data
   const [turer, setTurer] = useState([]);
+
   useEffect(() => {
-    getDocs(collectionTrips)
-    .then((snapshot) => {
-    snapshot.docs.forEach((doc) => {
-      const gg =[]
-      gg.push({ ...doc.data(), id: doc.id });
-      setTurer(gg);
-      // console.log(turer);
+    getDocs(collectionTrips).then((snapshot) => {
+      const tripsData = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setTurer(tripsData);
+    }).catch((err) => {
+      console.log(err.message);
     });
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-  });
-  
+  }, []);
 
   const trips1 = [
     {
@@ -69,30 +51,17 @@ function App() {
       description:
         "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
     },
-
- 
   ];
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   addTrip(event.target);
-
-  //   event.target.reset();
-  // };
 
   const [trips, setTrips] = useState(turer);
   const [showNewTripForm, setShowNewTripForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleAddTrip = (newTrip) => {
-     // Create a temporary URL for the new trip image
-  const imageUrl = URL.createObjectURL(newTrip.image);
-
-  // Add the new trip to the trips array
-  setTrips([...trips, { ...newTrip, image: imageUrl }]);
-
-  // Set the selected image to the new trip image
-  setSelectedImage({ ...newTrip, image: imageUrl });
-  setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
+    const imageUrl = URL.createObjectURL(newTrip.image);
+    setTrips([...trips, { ...newTrip, image: imageUrl }]);
+    setSelectedImage({ ...newTrip, image: imageUrl });
+    setTimeout(() => setSelectedImage(null), 10);
   };
 
   return (
@@ -109,4 +78,3 @@ function App() {
 }
 
 export default App;
-
