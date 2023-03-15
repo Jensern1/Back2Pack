@@ -3,6 +3,7 @@ import style from "./Trip.module.scss";
 
 function Trip({ username, tripName, image, description, price, length, rating }) {
   console.log("Rendering trip:", { username, tripName, image, description, price, length, rating });
+  console.log("test");
 
   // Ensure the rating is between 0 and 5
   const normalizedRating = Math.min(5, Math.max(0, rating));

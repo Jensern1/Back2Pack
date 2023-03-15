@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { db, addTrip } from "../../../sources/firebase.js";
 import {
   Button,
   FormControl,
@@ -14,10 +15,10 @@ import {
 import style from './NewTripForm.module.scss';
 
 const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
-  const [username, setUsername] = useState('');
-  const [tripName, setTripName] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
+  const [username, setUsername] = useState("");
+  const [tripName, setTripName] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
   const [price, setPrice] = useState('');
   const [length, setLength] = useState('');
   const [rating, setRating] = useState(0);
@@ -39,7 +40,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
     // This will depend on how you are currently managing the list of trips
     // For example, you might have a function in App that updates the state
     // with the new trip
-    onAddTrip(newTrip);
+    addTrip(newTrip);
 
     // Pass the image data to App component
     setSelectedImage(image);
@@ -49,15 +50,21 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
-    setImage(file);
+    const reader = new FileReader(); // Create a new FileReader object
+
+    reader.onload = (event) => {
+      const imageUrl = event.target.result; // Extract the URL from the FileReader result
+      setImage(imageUrl);
+    };
+
+    reader.readAsDataURL(file); // Read the file as a data URL
   };
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal isOpen onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create a new trip</ModalHeader>
+        <ModalHeader>Add a new trip</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit} className={style.form}>
@@ -72,9 +79,9 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
             <FormControl className={style.formControl}>
               <FormLabel>Image</FormLabel>
               <Input type="file" onChange={handleImageChange} accept="image/*" className={style.input} />
-              {image && (
+              {/* {image && (
                 <img src={URL.createObjectURL(image)} alt="Selected photo" height="100" className={style.image} />
-              )}
+              )} */}
             </FormControl>
             <FormControl className={style.formControl}>
               <FormLabel>Description</FormLabel>
