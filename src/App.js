@@ -28,12 +28,11 @@ const app = initializeApp(config);
 const db = getFirestore(app);
 const collectionTrips = collection(db, "Turer");
 
-function GetFromFirestore(collectionTrips) {
-  
-}
 
 function App() {
+  const [originalTurer, setOriginalTurer] = useState([])
   const [turer, setTurer] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     getDocs(collectionTrips)
@@ -42,8 +41,9 @@ function App() {
           ...doc.data(),
           id: doc.id,
         }));
+        setOriginalTurer(tripsData);
         setTurer(tripsData);
-        //console.log(tripsData);
+
       })
       .catch((err) => {
         console.log(err.message);
@@ -68,9 +68,27 @@ function App() {
       });
   };
 
+  const handleSearch = (input) => {
+    setSearchInput(input);
+
+    if (input.length == 0) {
+      setTurer(originalTurer);
+    }
+    if (input.length > 0) {
+      const filteredTrips = turer.filter((trip) => {
+        // console.log(trip.description.toLowerCase().includes("fantastisk"));
+        if (trip.tripName.toLowerCase().includes(input.toLowerCase()) || trip.username.toLowerCase().includes(input.toLowerCase()) || trip.description.toLowerCase().includes(input.toLowerCase())) {
+          return true;
+        }
+        return false;
+      });
+      setTurer(filteredTrips);
+    }
+  }
+
   return (
     <div className="App">
-      <Navbar onAddTrip={() => setShowNewTripForm(true)}>
+      <Navbar onAddTrip={() => setShowNewTripForm(true)} searchInput={searchInput} handleSearch={handleSearch} >
         <AddBtn />
       </Navbar>
       <Feed trips={turer} />

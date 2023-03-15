@@ -20,9 +20,9 @@ function Trip({
   const descriptionLength = description.length;
   let fontSize = "16px";
   if (descriptionLength > 500) {
-    fontSize = "12px";
+    fontSize = "18px";
   } else if (descriptionLength > 300) {
-    fontSize = "14px";
+    fontSize = "20px";
   }
 
   return (

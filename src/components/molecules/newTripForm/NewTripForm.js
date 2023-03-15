@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import style from "./NewTripForm.module.scss";
 
-const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
+const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
   const [username, setUsername] = useState("");
   const [tripName, setTripName] = useState("");
   const [image, setImage] = useState("");
@@ -65,7 +65,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
     <Modal isOpen onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a new trip</ModalHeader>
+        <ModalHeader fontSize="25px" >Add a new trip</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit} className={style.form}>
@@ -146,7 +146,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
           </form>
         </ModalBody>
       </ModalContent>
-    </Modal>
+    </Modal >
   );
 };
 
