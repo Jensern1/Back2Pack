@@ -49,7 +49,9 @@ function addTrip(data) {
 
   if (data) {
     addDoc(collectionTrips, {
+      username: data.Username.value,
       title: data.Tittel.value,
+      image: data.Image.value,
       description: data.Beskrivelse.value,
     });
   }

@@ -12,11 +12,17 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 import { Box, Flex, Button, Text, Input, IconButton } from "@chakra-ui/react";
-import { AiOutlineHome, AiOutlineUser, AiOutlineSearch } from "react-icons/ai";
+import {
+  AiOutlineHome,
+  AiOutlineUser,
+  AiOutlineSearch,
+  AiOutlinePlus,
+} from "react-icons/ai";
 import { HamburgerIcon, AddIcon } from "@chakra-ui/icons";
 import styles from "./Navbar.module.scss";
+import AddBtn from "../../atoms/addBtn/AddBtn";
 
-const Navbar = () => {
+const Navbar = ({ onAddTrip }) => {
   const [phone] = useMediaQuery("(max-width: 800px)");
 
   return (
@@ -59,10 +65,20 @@ const Navbar = () => {
           <IconButton
             variant="outline"
             colorScheme="teal"
-            mr={20}
+            mr={2}
             aria-label="Search database"
             icon={<AiOutlineSearch />}
           />
+          <Box mr="5">
+            <AddBtn
+              colorScheme="teal"
+              aria-label="addBtn"
+              size="lg"
+              mr={10}
+              icon={<AiOutlinePlus />}
+              onClick={() => onAddTrip(true)}
+            />
+          </Box>
           <Flex alignItems="center">
             <Box bg="#ffffff" borderRadius="full" p={1} mr={2}>
               <AiOutlineUser size={20} color="#1e212d" />
