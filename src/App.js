@@ -12,8 +12,6 @@ import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
 import Feed from "./components/molecules/feed/Feed.js";
 import AddBtn from "./components/atoms/addBtn/AddBtn.js";
-import image1 from "./assets/mountain.jpg";
-import image2 from "./assets/beach.jpg";
 import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js";
 
 const config = {
@@ -30,6 +28,10 @@ const app = initializeApp(config);
 const db = getFirestore(app);
 const collectionTrips = collection(db, "Turer");
 
+function GetFromFirestore(collectionTrips) {
+  
+}
+
 function App() {
   const [turer, setTurer] = useState([]);
 
@@ -41,68 +43,29 @@ function App() {
           id: doc.id,
         }));
         setTurer(tripsData);
-        console.log(turer);
+        //console.log(tripsData);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
-  // useEffect(() => {
-  //   const unsubscribe = onSnapshot(collectionTrips, (snapshot) => {
-  //     const tripsData = snapshot.docs.map((doc) => ({
-  //       ...doc.data(),
-  //       id: doc.id,
-  //     }));
-  //     setTurer(tripsData);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
-
-  const trips1 = [
-    {
-      username: "John Doe",
-      tripName: "Hiking in the Mountains",
-      image: image1,
-      description:
-        "I had a great time hiking in the mountains. The views were breathtaking!",
-      price: 100,
-      length: 5,
-      rating: 4,
-    },
-    {
-      username: "Jane Doe",
-      tripName: "Beach Vacation",
-      image: image2,
-      description:
-        "My beach vacation was amazing! I loved swimming in the ocean and relaxing on the beach.",
-      price: 200,
-      length: 7,
-      rating: 5,
-    },
-  ];
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addTrip(event.target);
-
-    event.target.reset();
-  };
-
-  const [trips, setTrips] = useState(turer);
+  //const [trips, setTrips] = useState(turer);
   const [showNewTripForm, setShowNewTripForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleAddTrip = (newTrip) => {
-    // Create a temporary URL for the new trip image
-    const imageUrl = URL.createObjectURL(newTrip.image);
-
-    // Add the new trip to the trips array
-    setTrips([...trips, { ...newTrip, image: imageUrl }]);
-
-    // Set the selected image to the new trip image
-    setSelectedImage({ ...newTrip, image: imageUrl });
-    setTimeout(() => setSelectedImage(null), 10); // clear selectedImage after 500ms
+  const handleAddTrip = () => {
+    getDocs(collectionTrips)
+      .then((snapshot) => {
+        const tripsData = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setTurer(tripsData);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
@@ -114,8 +77,8 @@ function App() {
       {showNewTripForm && (
         <NewTripForm
           onClose={() => setShowNewTripForm(false)}
-          onAddTrip={handleAddTrip}
-          // setSelectedImage={setSelectedImage}
+          onAddTrip={() => handleAddTrip()}
+
         />
       )}
       {selectedImage &&

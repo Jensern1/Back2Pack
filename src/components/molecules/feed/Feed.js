@@ -4,6 +4,7 @@ import style from "./Feed.module.scss";
 
 function Feed(props) {
   const { trips } = props;
+  console.log("test 2");
 
   return (
     <div className={style.feed}>

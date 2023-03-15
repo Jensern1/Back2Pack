@@ -21,18 +21,6 @@ const app = initializeApp(config);
 const db = getFirestore(app);
 const collectionTrips = collection(db, "Turer");
 
-// getDocs(collectionTrips)
-//   .then((snapshot) => {
-//     let turer = [];
-//     snapshot.docs.forEach((doc) => {
-//       turer.push({ ...doc.data(), id: doc.id });
-//     });
-//     console.log(turer);
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//   });
-
 function addTrip(data) {
   if (data) {
     // console.log("testprint");
