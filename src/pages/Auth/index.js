@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from 'sources/firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+
 import {
   Text,
   Stack,
@@ -23,48 +25,84 @@ import {
 } from '@chakra-ui/react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { FcGoogle } from 'react-icons/fc';
-import { createIcon } from '@chakra-ui/react';
+import { UserContext } from 'contexts/UserContext.js';
 
 function Auth() {
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { isOpen, onToggle } = useDisclosure();
+  const [rpassword, setrPassword] = useState('');
+  const seePassword = useDisclosure();
+  const loginMode = useDisclosure();
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const [errormsg, setError] = useState('');
 
-    await createUserWithEmailAndPassword(auth, email, password)
+  const { setUser, name } = useContext(UserContext);
+
+  const onGoogle = async () => {
+    signInWithPopup(auth, provider)
       .then((userCredential) => {
-        // Created user
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        //const token = credential.accessToken;
+        // The signed-in user info.
         const user = userCredential.user;
         console.log(user);
-        navigate('/User');
-        // ...
+        setUser(user.displayName, user.email, user.accessToken);
+        navigate('/');
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
+        setError('* ' + errorMessage);
       });
   };
 
-  const onLogin = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        navigate('/');
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+  const onSubmit = async () => {
+    if (!password || !rpassword || !email) {
+      setError('* All fields are mandatory!');
+    } else if (password === rpassword) {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Created user
+          const user = userCredential.user;
+          setUser(user.displayName, user.email, user.accessToken);
+          console.log('User: ' + name + ' logged in!');
+          navigate('/User');
+          // ...
+        })
+        .then((userCredential) => {
+          userCredential.user.updateProfile({
+            displayName: 'test',
+          });
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          setError('* ' + errorMessage);
+        });
+    } else {
+      setError("* Password's did not match!");
+    }
+  };
+
+  const onLogin = () => {
+    if (!password || !email) {
+      setError('* All fields are mandatory!');
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          setUser(user.displayName, user.email, user.accessToken);
+          console.log('User: ' + name + ' logged in!');
+          navigate('/');
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          setError('* ' + errorMessage);
+        });
+    }
   };
 
   return (
@@ -80,12 +118,22 @@ function Auth() {
           </Text>
           <Stack spacing={{ base: '2', md: '3' }} textAlign='center'>
             <Heading size={{ base: 'xs', md: 'sm' }}>
-              Log in to your account
+              {loginMode.isOpen
+                ? 'Log in to your account'
+                : 'Register for Back2Pack'}
             </Heading>
             <HStack spacing='1' justify='center'>
-              <Text color='muted'>Don't have an account?</Text>
-              <Button variant='link' colorScheme='blue'>
-                Sign up
+              <Text color='muted'>
+                {loginMode.isOpen
+                  ? "Don't have an account?"
+                  : 'Already have an account?'}
+              </Text>
+              <Button
+                variant='link'
+                colorScheme='blue'
+                onClick={loginMode.onToggle}
+              >
+                {loginMode.isOpen ? 'Sign up' : 'Login'}
               </Button>
             </HStack>
           </Stack>
@@ -101,7 +149,11 @@ function Auth() {
             <Stack spacing='5'>
               <FormControl>
                 <FormLabel htmlFor='email'>Email</FormLabel>
-                <Input id='email' type='email' />
+                <Input
+                  id='email'
+                  type='email'
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </FormControl>
               <FormControl>
                 <FormLabel htmlFor='password'>Password</FormLabel>
@@ -109,29 +161,56 @@ function Auth() {
                   <InputRightElement>
                     <IconButton
                       variant='link'
-                      aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-                      icon={isOpen ? <HiEyeOff /> : <HiEye />}
-                      onClick={onToggle}
+                      aria-label={
+                        seePassword.isOpen ? 'Mask password' : 'Reveal password'
+                      }
+                      icon={seePassword.isOpen ? <HiEyeOff /> : <HiEye />}
+                      onClick={seePassword.onToggle}
                     />
                   </InputRightElement>
                   <Input
                     id='password'
                     name='password'
-                    type={isOpen ? 'text' : 'password'}
+                    type={seePassword.isOpen ? 'text' : 'password'}
                     autoComplete='current-password'
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </InputGroup>
               </FormControl>
+              {loginMode.isOpen ? (
+                <></>
+              ) : (
+                <FormControl>
+                  <FormLabel htmlFor='repeat password'>
+                    Repeat password
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      id='rpassword'
+                      name='rpassword'
+                      type={seePassword.isOpen ? 'text' : 'password'}
+                      onChange={(e) => setrPassword(e.target.value)}
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+              )}
             </Stack>
             <HStack justify='space-between'>
               <Checkbox defaultChecked>Remember me</Checkbox>
-              <Button variant='link' colorScheme='blue' size='sm'>
-                Forgot password?
-              </Button>
             </HStack>
+            <Text color='red'>{errormsg}</Text>
             <Stack spacing='6'>
-              <Button variant='primary'>Sign in</Button>
+              {loginMode.isOpen ? (
+                <Button onClick={() => onLogin()} variant='primary'>
+                  Login
+                </Button>
+              ) : (
+                <Button onClick={() => onSubmit()} variant='primary'>
+                  Sign up
+                </Button>
+              )}
               <HStack>
                 <Divider />
                 <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
@@ -139,7 +218,7 @@ function Auth() {
                 </Text>
                 <Divider />
               </HStack>
-              <Button width='full'>
+              <Button width='full' onClick={() => onGoogle()}>
                 <FcGoogle />
                 <Text m={3}>Continue with Google</Text>
               </Button>
