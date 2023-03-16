@@ -23,6 +23,9 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
   const [length, setLength] = useState("");
   const [rating, setRating] = useState(0);
 
+  //Image preview in NewTripForm
+  const [formImage, setFormImage] = useState(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -37,25 +40,23 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
     };
 
     // Add the new trip to the list of trips
-    // This will depend on how you are currently managing the list of trips
-    // For example, you might have a function in App that updates the state
-    // with the new trip
     addTrip(newTrip);
     onAddTrip();
 
-    // Pass the image data to App component
+    // Pass the image data to the App component
     setSelectedImage(image);
-
     onClose();
   };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    setFormImage(file);
     const reader = new FileReader(); // Create a new FileReader object
 
     reader.onload = (event) => {
       const imageUrl = event.target.result; // Extract the URL from the FileReader result
       setImage(imageUrl);
+
     };
 
     reader.readAsDataURL(file); // Read the file as a data URL
@@ -93,9 +94,9 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
                 accept="image/*"
                 className={style.input}
               />
-              {/* {image && (
-                <img src={URL.createObjectURL(image)} alt="Selected photo" height="100" className={style.image} />
-              )} */}
+              {image && (
+                <img src={URL.createObjectURL(formImage)} alt="Selected photo" height="100" className={style.img} />
+              )}
             </FormControl>
             <FormControl className={style.formControl}>
               <FormLabel>Description</FormLabel>

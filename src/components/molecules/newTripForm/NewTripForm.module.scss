@@ -47,14 +47,16 @@
 
   img {
     display: block;
-    margin-top: 20px;
     max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    
   }
 
   .stars {
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+    align-items: flex-;
+
 
     .star {
       font-size: 60px;
