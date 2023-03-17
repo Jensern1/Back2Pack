@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  onSnapshot,
-} from 'firebase/firestore';
-import { addTrip } from './sources/firebase.js';
-import './App.scss';
-import Navbar from './components/molecules/navbar/Navbar.js';
-import Trip from './components/molecules/trip/Trip.js';
-import Feed from './components/molecules/feed/Feed.js';
-import AddBtn from './components/atoms/addBtn/AddBtn.js';
-import SortBtn from './components/atoms/sortBtn/SortBtn.js';
-import NewTripForm from './components/molecules/newTripForm/NewTripForm.js';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import '../../App.scss';
+import Navbar from '../../components/molecules/navbar/Navbar.js';
+import Trip from '../../components/molecules/trip/Trip.js';
+import Feed from '../../components/molecules/feed/Feed.js';
+import AddBtn from '../../components/atoms/addBtn/AddBtn.js';
+import SortBtn from '../../components/atoms/sortBtn/SortBtn.js';
+import NewTripForm from '../../components/molecules/newTripForm/NewTripForm.js';
 
 const config = {
   apiKey: 'AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg',
