@@ -1,10 +1,12 @@
 class Trip {
-  constructor(title, description, image, user, rating) {
-    this.title = title;
+  constructor(tripName, description, image, user, rating, length, price) {
+    this.tripName = tripName;
     this.description = description;
     this.image = image;
-    this.user = user;
+    this.username = usernamee;
     this.rating = rating;
+    this.length = length;
+    this.price = price;
   }
   toString() {
     return this.title + "," + this.description;
@@ -14,15 +16,26 @@ class Trip {
 const tripConverter = {
   toFirestore: (trip) => {
     return {
-      title: trip.title,
+      tripName: trip.tripName,
       description: trip.description,
       image: trip.image,
-      user: trip.user,
+      username: trip.username,
       rating: trip.rating,
+      length: trip.length,
+      price: trip.price,
     };
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
-    return new Trip(data.title, data.description, data.image, data.user, data.rating);
+    console.log(data);
+    return new Trip(
+      data.tripName,
+      data.description,
+      data.image,
+      data.username,
+      data.length,
+      data.price,
+      data.rating
+    );
   },
 };
