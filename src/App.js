@@ -12,6 +12,7 @@ import Navbar from "./components/molecules/navbar/Navbar.js";
 import Trip from "./components/molecules/trip/Trip.js";
 import Feed from "./components/molecules/feed/Feed.js";
 import AddBtn from "./components/atoms/addBtn/AddBtn.js";
+import SortBtn from "./components/atoms/sortBtn/SortBtn.js";
 import NewTripForm from "./components/molecules/newTripForm/NewTripForm.js";
 
 const config = {
@@ -28,11 +29,11 @@ const app = initializeApp(config);
 const db = getFirestore(app);
 const collectionTrips = collection(db, "Turer");
 
-
 function App() {
-  const [originalTurer, setOriginalTurer] = useState([])
+  const [originalTurer, setOriginalTurer] = useState([]);
   const [turer, setTurer] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [sortType, setSortType] = useState(0);
 
   useEffect(() => {
     getDocs(collectionTrips)
@@ -43,7 +44,6 @@ function App() {
         }));
         setOriginalTurer(tripsData);
         setTurer(tripsData);
-
       })
       .catch((err) => {
         console.log(err.message);
@@ -77,26 +77,54 @@ function App() {
     if (input.length > 0) {
       const filteredTrips = turer.filter((trip) => {
         // console.log(trip.description.toLowerCase().includes("fantastisk"));
-        if (trip.tripName.toLowerCase().includes(input.toLowerCase()) || trip.username.toLowerCase().includes(input.toLowerCase()) || trip.description.toLowerCase().includes(input.toLowerCase())) {
+        if (
+          trip.tripName.toLowerCase().includes(input.toLowerCase()) ||
+          trip.username.toLowerCase().includes(input.toLowerCase()) ||
+          trip.description.toLowerCase().includes(input.toLowerCase())
+        ) {
           return true;
         }
         return false;
       });
       setTurer(filteredTrips);
     }
+  };
+
+  function compareByASCPrice(trip1, trip2) {
+    return trip1.price - trip2.price;
   }
+
+  function compareByDESCPrice(trip1, trip2) {
+    return trip1.price - trip2.price;
+  }
+
+  const handleSort = (sortType) => {
+    let sortedTurer = [];
+    if (sortType == 1) {
+      sortedTurer = [...turer].sort(compareByASCPrice);
+    } else if (sortType == 2) {
+      sortedTurer = [...turer].sort(compareByDESCPrice);
+    }
+    setSortType(sortType);
+    setTurer(sortedTurer);
+    console.log("SortType = " + sortType);
+  };
 
   return (
     <div className="App">
-      <Navbar onAddTrip={() => setShowNewTripForm(true)} searchInput={searchInput} handleSearch={handleSearch} >
+      <Navbar
+        onAddTrip={() => setShowNewTripForm(true)}
+        searchInput={searchInput}
+        handleSearch={handleSearch}
+      >
         <AddBtn />
       </Navbar>
+      <SortBtn setSortTypeApp={handleSort}></SortBtn>
       <Feed trips={turer} />
       {showNewTripForm && (
         <NewTripForm
           onClose={() => setShowNewTripForm(false)}
           onAddTrip={() => handleAddTrip()}
-
         />
       )}
       {selectedImage &&
