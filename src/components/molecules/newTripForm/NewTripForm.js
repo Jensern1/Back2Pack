@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { db, addTrip } from "../../../sources/firebase.js";
 import {
   Button,
@@ -13,8 +13,9 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import style from "./NewTripForm.module.scss";
+import { UserContext } from "contexts/UserContext.js";
 
-const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
+const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
   const [username, setUsername] = useState("");
   const [tripName, setTripName] = useState("");
   const [image, setImage] = useState("");
@@ -22,6 +23,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
   const [price, setPrice] = useState("");
   const [length, setLength] = useState("");
   const [rating, setRating] = useState(0);
+  const { name } = useContext(UserContext);
 
   //Image preview in NewTripForm
   const [formImage, setFormImage] = useState(null);
@@ -30,7 +32,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
     event.preventDefault();
 
     const newTrip = {
-      username: username,
+      username: name,
       tripName: tripName,
       image: image,
       description: description,
@@ -56,7 +58,6 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
     reader.onload = (event) => {
       const imageUrl = event.target.result; // Extract the URL from the FileReader result
       setImage(imageUrl);
-
     };
 
     reader.readAsDataURL(file); // Read the file as a data URL
@@ -66,18 +67,10 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
     <Modal isOpen onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader fontSize="25px" >Add a new trip</ModalHeader>
+        <ModalHeader fontSize="25px">Add a new trip</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit} className={style.form}>
-            <FormControl className={style.formControl}>
-              <FormLabel>Username</FormLabel>
-              <Input
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                className={style.input}
-              />
-            </FormControl>
             <FormControl className={style.formControl}>
               <FormLabel>Trip name</FormLabel>
               <Input
@@ -95,7 +88,12 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
                 className={style.input}
               />
               {image && (
-                <img src={URL.createObjectURL(formImage)} alt="Selected photo" height="100" className={style.img} />
+                <img
+                  src={URL.createObjectURL(formImage)}
+                  alt="Selected photo"
+                  height="100"
+                  className={style.img}
+                />
               )}
             </FormControl>
             <FormControl className={style.formControl}>
@@ -147,7 +145,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
           </form>
         </ModalBody>
       </ModalContent>
-    </Modal >
+    </Modal>
   );
 };
 

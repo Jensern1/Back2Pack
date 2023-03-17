@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import '../../App.scss';
-import Navbar from '../../components/molecules/navbar/Navbar.js';
-import Trip from '../../components/molecules/trip/Trip.js';
-import Feed from '../../components/molecules/feed/Feed.js';
-import AddBtn from '../../components/atoms/addBtn/AddBtn.js';
-import SortBtn from '../../components/atoms/sortBtn/SortBtn.js';
-import NewTripForm from '../../components/molecules/newTripForm/NewTripForm.js';
+import React, { useEffect, useState, useContext } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import "../../App.scss";
+import Navbar from "../../components/molecules/navbar/Navbar.js";
+import Trip from "../../components/molecules/trip/Trip.js";
+import Feed from "../../components/molecules/feed/Feed.js";
+import AddBtn from "../../components/atoms/addBtn/AddBtn.js";
+import SortBtn from "../../components/atoms/sortBtn/SortBtn.js";
+import NewTripForm from "../../components/molecules/newTripForm/NewTripForm.js";
 
 const config = {
-  apiKey: 'AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg',
-  authDomain: 'pu-backpakking.firebaseapp.com',
-  projectId: 'pu-backpakking',
-  storageBucket: 'pu-backpakking.appspot.com',
-  messagingSenderId: '634044469514',
-  appId: '1:634044469514:web:fdeca9d99765d2d4f8eaf3',
-  measurementId: 'G-YG9HM34W3G',
+  apiKey: "AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg",
+  authDomain: "pu-backpakking.firebaseapp.com",
+  projectId: "pu-backpakking",
+  storageBucket: "pu-backpakking.appspot.com",
+  messagingSenderId: "634044469514",
+  appId: "1:634044469514:web:fdeca9d99765d2d4f8eaf3",
+  measurementId: "G-YG9HM34W3G",
 };
 
 const app = initializeApp(config);
 const db = getFirestore(app);
-const collectionTrips = collection(db, 'Turer');
+const collectionTrips = collection(db, "Turer");
 
 function Home() {
   const [originalTurer, setOriginalTurer] = useState([]);
   const [turer, setTurer] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const [sortType, setSortType] = useState(0);
 
   useEffect(() => {
@@ -101,11 +101,11 @@ function Home() {
     }
     setSortType(sortType);
     setTurer(sortedTurer);
-    console.log('SortType = ' + sortType);
+    console.log("SortType = " + sortType);
   };
 
   return (
-    <div className='App'>
+    <div className="App">
       <Navbar
         onAddTrip={() => setShowNewTripForm(true)}
         searchInput={searchInput}

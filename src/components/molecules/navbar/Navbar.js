@@ -55,15 +55,25 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
                 Back2Pack
               </Text>
             </Box>
-            <Button variant="ghost" leftIcon={<AiOutlineHome />} size="lg">
-              Home
-            </Button>
-            <Button variant="ghost" leftIcon={<AiOutlineUser />} size="lg">
-              User
-            </Button>
+            <a href="http://localhost:3000">
+              <Button variant="ghost" leftIcon={<AiOutlineHome />} size="lg">
+                Home
+              </Button>
+            </a>
+            <a href="http://localhost:3000/User">
+              <Button variant="ghost" leftIcon={<AiOutlineUser />} size="lg">
+                User
+              </Button>
+            </a>
           </Flex>
           <Flex alignItems="center" flex="3" justifyContent="center">
-            <Input placeholder="Search" size="md" value={searchInput} onChange={(event) => handleSearch(event.target.value)} w="50%" />
+            <Input
+              placeholder="Search"
+              size="md"
+              value={searchInput}
+              onChange={(event) => handleSearch(event.target.value)}
+              w="50%"
+            />
             <Box ml="5">
               <AddBtn
                 colorScheme="teal"
@@ -74,11 +84,19 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
               />
             </Box>
           </Flex>
-          <Flex marginLeft="auto" marginRight="0" justifyContent='flex-end' alignItems='center' flex="1">
+          <Flex
+            marginLeft="auto"
+            marginRight="0"
+            justifyContent="flex-end"
+            alignItems="center"
+            flex="1"
+          >
             <Box bg="#ffffff" borderRadius="full" p={2} mr={2}>
               <AiOutlineUser size={32} color="#1e212d" />
-            </Box >
-            <Text fontSize="xl" fontWeight="bold">Username</Text>
+            </Box>
+            <Text fontSize="xl" fontWeight="bold">
+              Username
+            </Text>
           </Flex>
         </>
       )}
