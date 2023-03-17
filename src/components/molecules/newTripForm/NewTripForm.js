@@ -13,17 +13,16 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import style from "./NewTripForm.module.scss";
-import { UserContext } from "contexts/UserContext.js";
+import { UserContext } from "../../../contexts/UserContext.js";
 
-const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
-  const [username, setUsername] = useState("");
+const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
   const [tripName, setTripName] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [length, setLength] = useState("");
   const [rating, setRating] = useState(0);
-  const { name } = useContext(UserContext);
+  const { name, userID } = useContext(UserContext);
 
   //Image preview in NewTripForm
   const [formImage, setFormImage] = useState(null);
@@ -32,6 +31,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
     event.preventDefault();
 
     const newTrip = {
+      userID: userID,
       username: name,
       tripName: tripName,
       image: image,
@@ -142,6 +142,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => {} }) => {
             >
               Create trip
             </Button>
+
           </form>
         </ModalBody>
       </ModalContent>

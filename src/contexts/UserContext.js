@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { useState } from "react";
 
 const UserContext = createContext();
@@ -7,19 +7,23 @@ const UserProvider = ({ children }) => {
   const [name, setName] = useState(window.localStorage.getItem("name"));
   const [email, setEmail] = useState(window.localStorage.getItem("email"));
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [userID, setUserID] = useState(null);
   const [isLoggedIn, setLoggedIn] = useState(
     window.localStorage.getItem("isLoggedIn") === "true"
   );
 
-  function setUser(fname, femail, ftoken) {
+  function setUser(uid, fname, femail, ftoken) {
     if (fname === null || fname === undefined || fname === "") {
       let splitname = femail.split("@")[0];
       setName(splitname.split(".")[0]);
     } else {
       setName(fname);
     }
+    setUserID(uid);
+    console.log("UID = " + uid);
     setEmail(femail);
     setToken(ftoken);
+
     setLoggedIn(true);
     console.log("User set!");
 
@@ -27,6 +31,7 @@ const UserProvider = ({ children }) => {
     window.localStorage.setItem("email", email);
     window.localStorage.setItem("token", token);
     window.localStorage.setItem("isLoggedIn", "true");
+
   }
 
   function loggOut() {
@@ -44,7 +49,7 @@ const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ name, email, token, isLoggedIn, loggOut, setUser }}
+      value={{ userID, name, email, token, isLoggedIn, loggOut, setUser }}
     >
       {children}
     </UserContext.Provider>

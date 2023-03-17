@@ -31,32 +31,25 @@ const SortBtn = ({ setSortTypeApp }) => {
   return (
     <div className={style.dropdown}>
       <button className={style.btn} onClick={handleOpen}>
-        Dropdown
-        {open ? (
-          <span className={style.arrowUp}>&#9650;</span>
-        ) : (
-          <span className={style.arrowDown}>&#9660;</span>
-        )}
+        Sort Trips
+        <span className={`${style.arrow} ${open ? style.arrowUp : ''}`}>&#9660;</span>
       </button>
-      {open ? (
-        <ul className={style.menu}>
-          <li>
-            <button onClick={handleMenuOne}>Pris høy-lav</button>
-          </li>
-          <li>
-            <button onClick={handleMenuTwo}>Pris lav-høy</button>
-          </li>
-          <li>
-            <button onClick={handleMenuThree}>Rating høy-lav</button>
-          </li>
-          <li>
-            <button onClick={handleMenuFour}>Rating lav-høy</button>
-          </li>
-        </ul>
-      ) : null}
-      {open ? <div>Is Open</div> : <div>Is Closed</div>}
+      <ul className={`${style.menu} ${open ? style.open : ''}`}>
+        <li>
+          <button onClick={handleMenuOne}>Pris høy-lav</button>
+        </li>
+        <li>
+          <button onClick={handleMenuTwo}>Pris lav-høy</button>
+        </li>
+        <li>
+          <button onClick={handleMenuThree}>Rating høy-lav</button>
+        </li>
+        <li>
+          <button onClick={handleMenuFour}>Rating lav-høy</button>
+        </li>
+      </ul>
     </div>
   );
-};
+}
 
 export default SortBtn;

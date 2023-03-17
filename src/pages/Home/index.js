@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import "../../App.scss";
 import Navbar from "../../components/molecules/navbar/Navbar.js";
 import Trip from "../../components/molecules/trip/Trip.js";
@@ -8,6 +8,7 @@ import Feed from "../../components/molecules/feed/Feed.js";
 import AddBtn from "../../components/atoms/addBtn/AddBtn.js";
 import SortBtn from "../../components/atoms/sortBtn/SortBtn.js";
 import NewTripForm from "../../components/molecules/newTripForm/NewTripForm.js";
+
 
 const config = {
   apiKey: "AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg",
@@ -22,12 +23,15 @@ const config = {
 const app = initializeApp(config);
 const db = getFirestore(app);
 const collectionTrips = collection(db, "Turer");
+const collectionUsers = collection(db, "bruker");
 
 function Home() {
   const [originalTurer, setOriginalTurer] = useState([]);
   const [turer, setTurer] = useState([]);
+  const [brukere, setBrukere] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortType, setSortType] = useState(0);
+
 
   useEffect(() => {
     getDocs(collectionTrips)
@@ -38,6 +42,18 @@ function Home() {
         }));
         setOriginalTurer(tripsData);
         setTurer(tripsData);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    getDocs(collectionUsers)
+      .then((snapshot) => {
+        const brukerData = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setBrukere(brukerData);
       })
       .catch((err) => {
         console.log(err.message);
@@ -62,6 +78,20 @@ function Home() {
       });
   };
 
+  const handleDeleteTrip = async (tripId) => {
+    try {
+      const tripRef = doc(db, "Turer", tripId);
+      await deleteDoc(tripRef);
+
+      // Update the state after deleting the trip
+      setOriginalTurer(originalTurer.filter((trip) => trip.id !== tripId));
+      setTurer(turer.filter((trip) => trip.id !== tripId));
+
+    } catch (err) {
+      console.log("Error deleting trip:", err);
+    }
+  };
+
   const handleSearch = (input) => {
     setSearchInput(input);
 
@@ -70,7 +100,6 @@ function Home() {
     }
     if (input.length > 0) {
       const filteredTrips = turer.filter((trip) => {
-        // console.log(trip.description.toLowerCase().includes("fantastisk"));
         if (
           trip.tripName.toLowerCase().includes(input.toLowerCase()) ||
           trip.username.toLowerCase().includes(input.toLowerCase()) ||
@@ -113,7 +142,6 @@ function Home() {
     }
     setSortType(sortType);
     setTurer(sortedTurer);
-    console.log("SortType = " + sortType);
   };
 
   return (
@@ -126,7 +154,7 @@ function Home() {
         <AddBtn />
       </Navbar>
       <SortBtn setSortTypeApp={handleSort}></SortBtn>
-      <Feed trips={turer} />
+      <Feed trips={turer} onDelete={handleDeleteTrip} />
       {showNewTripForm && (
         <NewTripForm
           onClose={() => setShowNewTripForm(false)}
