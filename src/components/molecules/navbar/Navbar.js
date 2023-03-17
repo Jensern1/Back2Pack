@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import { useMediaQuery } from "@chakra-ui/react";
 import {
   Menu,
@@ -21,9 +21,11 @@ import {
 import { HamburgerIcon, AddIcon } from "@chakra-ui/icons";
 import styles from "./Navbar.module.scss";
 import AddBtn from "../../atoms/addBtn/AddBtn";
+import { UserContext } from "contexts/UserContext.js";
 
 const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
   const [phone] = useMediaQuery("(max-width: 800px)");
+  const { name } = useContext(UserContext);
 
   return (
     <Box className={styles.navbar}>
@@ -95,7 +97,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
               <AiOutlineUser size={32} color="#1e212d" />
             </Box>
             <Text fontSize="xl" fontWeight="bold">
-              Username
+              {name}
             </Text>
           </Flex>
         </>

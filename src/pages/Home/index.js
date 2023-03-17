@@ -89,7 +89,15 @@ function Home() {
   }
 
   function compareByDESCPrice(trip1, trip2) {
-    return trip1.price - trip2.price;
+    return trip2.price - trip1.price;
+  }
+
+  function compareByASCRating(trip1, trip2) {
+    return trip1.rating - trip2.rating;
+  }
+
+  function compareByDESCRating(trip1, trip2) {
+    return trip2.rating - trip1.rating;
   }
 
   const handleSort = (sortType) => {
@@ -98,6 +106,10 @@ function Home() {
       sortedTurer = [...turer].sort(compareByASCPrice);
     } else if (sortType == 2) {
       sortedTurer = [...turer].sort(compareByDESCPrice);
+    } else if (sortType == 3) {
+      sortedTurer = [...turer].sort(compareByASCRating);
+    } else if (sortType == 4) {
+      sortedTurer = [...turer].sort(compareByDESCRating);
     }
     setSortType(sortType);
     setTurer(sortedTurer);
