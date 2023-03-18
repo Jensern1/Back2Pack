@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./Trip.module.scss";
 
 function Trip({
+  id,
   username,
   tripName,
   image,
@@ -9,27 +10,20 @@ function Trip({
   price,
   length,
   rating,
+  creatorID,
+  currentUserID,
+  onDelete,
 }) {
-  //console.log("Rendering trip:", { username, tripName, image, description, price, length, rating });
-  //console.log("test");
-
-  // Ensure the rating is between 0 and 5
   const normalizedRating = Math.min(5, Math.max(0, rating));
+  // console.log("Rendering trip:", { username, tripName, image, description, price, length, rating });
+  const canDelete = creatorID === currentUserID;
 
-  // Dynamically adjust size of fields depending on description length
-  // const descriptionLength = description.length;
-  // let fontSize = "16px";
-  // if (descriptionLength > 500) {
-  //   fontSize = "18px";
-  // } else if (descriptionLength > 300) {
-  //   fontSize = "20px";
-  // }
+  const handleDelete = () => {
+    onDelete(id);
+  };
 
   return (
-    <div
-      className={style.trip}
-      style={{ backgroundColor: "#1c2237", color: "white" }}
-    >
+    <div className={style.trip} style={{ backgroundColor: "#1c2237", color: "white" }}>
       <div className={style["trip-header"]}>
         <h2>{tripName}</h2>
         <h3>by {username}</h3>
@@ -37,7 +31,6 @@ function Trip({
       <div className={style["trip-images"]}>
         <img src={image} alt={tripName} className={style["trip-image"]} />
       </div>
-
       <div className={style["trip-description"]}>
         <p>{description}</p>
         <div className={style["trip-footer"]}>
@@ -63,6 +56,11 @@ function Trip({
             </div>
           </div>
         </div>
+        {canDelete && (
+          <button className={style["delete-button"]} onClick={handleDelete}>
+            🗑️
+          </button>
+        )}
       </div>
     </div>
   );

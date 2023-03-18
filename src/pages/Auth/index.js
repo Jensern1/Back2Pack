@@ -50,7 +50,7 @@ function Auth() {
         // The signed-in user info.
         const user = userCredential.user;
         console.log(user);
-        setUser(user.displayName, user.email, user.accessToken);
+        setUser(user.uid, user.displayName, user.email, user.accessToken);
         navigate('/');
       })
       .catch((error) => {
@@ -67,8 +67,9 @@ function Auth() {
         .then((userCredential) => {
           // Created user
           const user = userCredential.user;
-          setUser(user.displayName, user.email, user.accessToken);
+          setUser(user.uid, user.displayName, user.email, user.accessToken);
           console.log('User: ' + name + ' logged in!');
+          console.log("I onSubmit er UserID = " + user.uid);
           navigate('/User');
           // ...
         })
@@ -94,7 +95,7 @@ function Auth() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          setUser(user.displayName, user.email, user.accessToken);
+          setUser(user.uid, user.displayName, user.email, user.accessToken);
           console.log('User: ' + name + ' logged in!');
           navigate('/');
         })

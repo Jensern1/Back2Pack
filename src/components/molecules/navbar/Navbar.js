@@ -16,21 +16,21 @@ import {
   AiOutlineHome,
   AiOutlineUser,
   AiOutlineSearch,
-  AiOutlinePlus,
+  AiOutlinePlus, 
 } from 'react-icons/ai';
 import { HamburgerIcon, AddIcon } from '@chakra-ui/icons';
 import styles from './Navbar.module.scss';
 import AddBtn from '../../atoms/addBtn/AddBtn';
-import { UserContext } from 'contexts/UserContext.js';
+import { UserContext } from '../../../contexts/UserContext.js';
 
 const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
   const [phone] = useMediaQuery('(max-width: 800px)');
-  const { loggOut, name } = useContext(UserContext);
+  const { logOut, name } = useContext(UserContext);
 
   return (
     <Box className={styles.navbar}>
       {phone ? (
-        <Flex alignItems='center' justifyContent={'space-between'} flex='1'>
+        <Flex alignItems='center' justifyContent='space-between' flex='1'>
           <Text fontSize='4xl' fontFamily='cursive'>
             Back2Pack
           </Text>
@@ -99,7 +99,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
             <Text fontSize='xl' fontWeight='bold'>
               {name}
             </Text>
-            <Button ml={10} variant='outline' onClick={() => loggOut()}>
+            <Button ml={10} variant='outline' onClick={() => logOut()}>
               Logout
             </Button>
           </Flex>

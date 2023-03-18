@@ -3,50 +3,53 @@ import style from "./SortBtn.module.scss";
 
 const SortBtn = ({ setSortTypeApp }) => {
   const [open, setOpen] = useState(false);
-  const [sortType, setSortType] = useState(null);
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
   const handleMenuOne = () => {
-    setSortType(1);
     setSortTypeApp(1);
-    console.log("Nummer en!");
     setOpen(false);
   };
 
   const handleMenuTwo = () => {
-    setSortType(2);
     setSortTypeApp(2);
+    setOpen(false);
+  };
 
-    console.log("Nummer to!");
+  const handleMenuThree = () => {
+    setSortTypeApp(3);
+    setOpen(false);
+  };
+
+  const handleMenuFour = () => {
+    setSortTypeApp(4);
     setOpen(false);
   };
 
   return (
     <div className={style.dropdown}>
       <button className={style.btn} onClick={handleOpen}>
-        Dropdown
-        {open ? (
-          <span className={style.arrowUp}>&#9650;</span>
-        ) : (
-          <span className={style.arrowDown}>&#9660;</span>
-        )}
+        Sort Trips
+        <span className={`${style.arrow} ${open ? style.arrowUp : ''}`}>&#9660;</span>
       </button>
-      {open ? (
-        <ul className={style.menu}>
-          <li>
-            <button onClick={handleMenuOne}>Menu 1</button>
-          </li>
-          <li>
-            <button onClick={handleMenuTwo}>Menu 2</button>
-          </li>
-        </ul>
-      ) : null}
-      {open ? <div>Is Open</div> : <div>Is Closed</div>}
+      <ul className={`${style.menu} ${open ? style.open : ''}`}>
+        <li>
+          <button onClick={handleMenuOne}>Pris høy-lav</button>
+        </li>
+        <li>
+          <button onClick={handleMenuTwo}>Pris lav-høy</button>
+        </li>
+        <li>
+          <button onClick={handleMenuThree}>Rating høy-lav</button>
+        </li>
+        <li>
+          <button onClick={handleMenuFour}>Rating lav-høy</button>
+        </li>
+      </ul>
     </div>
   );
-};
+}
 
 export default SortBtn;
