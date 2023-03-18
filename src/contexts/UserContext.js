@@ -33,7 +33,7 @@ const UserProvider = ({ children }) => {
     window.localStorage.setItem('isLoggedIn', 'true');
   }
 
-  function loggOut() {
+  function logOut() {
     setName('');
     setEmail('');
     setToken('');
@@ -49,7 +49,7 @@ const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ userID, name, email, token, isLoggedIn, loggOut, setUser }}
+      value={{ userID, name, email, token, isLoggedIn, logOut, setUser }}
     >
       {children}
     </UserContext.Provider>
