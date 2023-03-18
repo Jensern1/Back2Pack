@@ -6,7 +6,7 @@ const UserProvider = ({ children }) => {
   const [name, setName] = useState(window.localStorage.getItem('name'));
   const [email, setEmail] = useState(window.localStorage.getItem('email'));
   const [token, setToken] = useState(window.localStorage.getItem('token'));
-  const [userID, setUserID] = useState(window.localStorage.setItem('uid'));
+  const [userID, setUserID] = useState(window.localStorage.getItem('uid'));
   const [isLoggedIn, setLoggedIn] = useState(
     window.localStorage.getItem('isLoggedIn') === 'true'
   );

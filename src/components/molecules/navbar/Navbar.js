@@ -16,16 +16,18 @@ import {
   AiOutlineHome,
   AiOutlineUser,
   AiOutlineSearch,
-  AiOutlinePlus, 
+  AiOutlinePlus,
 } from 'react-icons/ai';
 import { HamburgerIcon, AddIcon } from '@chakra-ui/icons';
 import styles from './Navbar.module.scss';
 import AddBtn from '../../atoms/addBtn/AddBtn';
 import { UserContext } from '../../../contexts/UserContext.js';
+import { useColorMode } from '@chakra-ui/react';
 
 const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
   const [phone] = useMediaQuery('(max-width: 800px)');
   const { logOut, name } = useContext(UserContext);
+  const { toggleColorMode, colorMode } = useColorMode();
 
   return (
     <Box className={styles.navbar}>
@@ -101,6 +103,9 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
             </Text>
             <Button ml={10} variant='outline' onClick={() => logOut()}>
               Logout
+            </Button>
+            <Button ml={10} variant='outline' onClick={() => toggleColorMode()}>
+              {colorMode === 'light' ? 'Dark' : 'Light'}
             </Button>
           </Flex>
         </>
