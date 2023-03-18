@@ -25,7 +25,7 @@ import { UserContext } from 'contexts/UserContext.js';
 
 const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
   const [phone] = useMediaQuery('(max-width: 800px)');
-  const { loggOut } = useContext(UserContext);
+  const { loggOut, name } = useContext(UserContext);
 
   return (
     <Box className={styles.navbar}>
@@ -97,7 +97,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
               <AiOutlineUser size={32} color='#1e212d' />
             </Box>
             <Text fontSize='xl' fontWeight='bold'>
-              Username
+              {name}
             </Text>
             <Button ml={10} variant='outline' onClick={() => loggOut()}>
               Logout
