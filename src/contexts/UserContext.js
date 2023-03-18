@@ -1,45 +1,46 @@
-import React, { createContext } from "react";
-import { useState } from "react";
+import React, { createContext } from 'react';
+import { useState } from 'react';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [name, setName] = useState(window.localStorage.getItem("name"));
-  const [email, setEmail] = useState(window.localStorage.getItem("email"));
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [name, setName] = useState(window.localStorage.getItem('name'));
+  const [email, setEmail] = useState(window.localStorage.getItem('email'));
+  const [token, setToken] = useState(window.localStorage.getItem('token'));
   const [isLoggedIn, setLoggedIn] = useState(
-    window.localStorage.getItem("isLoggedIn") === "true"
+    window.localStorage.getItem('isLoggedIn') === 'true'
   );
 
   function setUser(fname, femail, ftoken) {
-    if (fname === null || fname === undefined || fname === "") {
-      let splitname = femail.split("@")[0];
-      setName(splitname.split(".")[0]);
-    } else {
-      setName(fname);
+    let newName = '';
+    if (fname === null || fname === undefined || fname === '') {
+      let splitname = femail.split('@')[0];
+      newName = splitname.split('.')[0];
     }
+
+    setName(newName);
     setEmail(femail);
     setToken(ftoken);
     setLoggedIn(true);
-    console.log("User set!");
+    console.log('User set!');
 
-    window.localStorage.setItem("name", name);
-    window.localStorage.setItem("email", email);
-    window.localStorage.setItem("token", token);
-    window.localStorage.setItem("isLoggedIn", "true");
+    window.localStorage.setItem('name', newName);
+    window.localStorage.setItem('email', femail);
+    window.localStorage.setItem('token', ftoken);
+    window.localStorage.setItem('isLoggedIn', 'true');
   }
 
   function loggOut() {
-    setName("");
-    setEmail("");
-    setToken("");
+    setName('');
+    setEmail('');
+    setToken('');
     setLoggedIn(false);
-    console.log("User logged out!");
+    console.log('User logged out!');
 
-    window.localStorage.setItem("name", "");
-    window.localStorage.setItem("email", "");
-    window.localStorage.setItem("token", "");
-    window.localStorage.setItem("isLoggedIn", "false");
+    window.localStorage.setItem('name', '');
+    window.localStorage.setItem('email', '');
+    window.localStorage.setItem('token', '');
+    window.localStorage.setItem('isLoggedIn', 'false');
   }
 
   return (
