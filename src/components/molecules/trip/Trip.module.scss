@@ -1,18 +1,26 @@
 .trip {
   width: 700px;
   height: 700px;
-  border: 1px solid black;
   margin: 20px;
   overflow: hidden;
   border-radius: 15px;
-  border-width: 2px;
+  position: relative;
+  box-shadow: 0px 6px 20px -6px rgba(0, 0, 0, 0.9);
+  // background-color: darkgray;
+}
+
+
+.trip-wrapper { /* Add this class */
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .trip-header {
   padding: 5px;
   height: 15%;
   font-size: 19px;
-  border: 1px solid black;
+  // border: 1px solid black;
+  margin-left: 4px;
   text-align: left;
 }
 
@@ -27,21 +35,22 @@
   align-items: center;
   justify-content: center;
   height: 60%;
-  overflow: hidden;
+  overflow: auto;
   max-height: 70%;
-  border: 1px solid black;
+
+  // border: 1px solid black;
 }
 
 .trip-image {
-  max-width: 100%;
+  max-width: 97%;
   height: 90%;
   width: auto;
   object-fit: cover;
   flex: 1 1 25%;
-  margin: 5px;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  margin: 10px;
+  // border: 1px solid #000000;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.75);
 }
 
 .trip-description {
@@ -50,33 +59,37 @@
   font-family: sans-serif;
   font-size: 20px;
   line-height: 1.5;
-  border: 1px solid black;
+  // border: 1px solid black;
   position: relative;
   padding: 7px;
   text-align: center;
   vertical-align: top;
-
 }
 
 .trip-footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 80px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
   width: 100%;
   height: 20%;
   align-items: center;
+  // border-width: 4px;
+  // border-radius: 15px;
+  // border-color: rgb(78, 76, 76);
 }
 
 .trip-price, .trip-length, .trip-rating {
   height: 100%;
   flex-basis: 30%;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .trip-price p, .trip-length p, .trip-rating p {
-  margin: 0;
-  font-size: 20px;
+  font-size: 23px;
 }
 
 .trip-length {
@@ -85,9 +98,6 @@
 
 .trip-rating {
   flex-basis: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .trip-rating-stars {
@@ -98,12 +108,15 @@
 
 .star {
   color: #FFD700;
+  font-size: 23px;
 }
 .delete-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: white;
+  background-color: red;
+  margin-right: 5px;
+  margin-top: 7px;
   border: 2px solid #000;
   border-radius: 5px;
   font-size: 25px;
@@ -111,8 +124,8 @@
   cursor: pointer;
   transition: 0.3s;
 
+
   &:hover {
-    background-color: #f1f1f1;
     transform: scale(1.1);
   }
 }

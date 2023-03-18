@@ -55,24 +55,23 @@
 
   .stars {
     display: flex;
-    align-items: flex-;
-
-
+    align-items: center;
+  
     .star {
       font-size: 60px;
       color: #ccc;
       cursor: pointer;
       transition: color 0.3s ease-in-out;
-
+  
       &:hover,
       &:focus {
-        color: yellow;
-        outline: yellow;
+        color: rgb(248, 224, 10);
+        outline: none;
       }
     }
-
+  
     .active {
-      color: yellow;
+      color: rgb(248, 224, 10);
     }
   }
 }

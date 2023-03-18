@@ -23,6 +23,8 @@ import styles from './Navbar.module.scss';
 import AddBtn from '../../atoms/addBtn/AddBtn';
 import { UserContext } from '../../../contexts/UserContext.js';
 import { useColorMode } from '@chakra-ui/react';
+import "../../../fonts.css";
+
 
 const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
   const [phone] = useMediaQuery('(max-width: 800px)');
@@ -33,7 +35,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
     <Box className={styles.navbar}>
       {phone ? (
         <Flex alignItems='center' justifyContent='space-between' flex='1'>
-          <Text fontSize='4xl' fontFamily='cursive'>
+          <Text className={styles.logo} fontSize='4xl' >
             Back2Pack
           </Text>
           <Menu>
@@ -55,7 +57,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
         <>
           <Flex alignItems='center' flex='1'>
             <Box mr='5'>
-              <Text fontSize='4xl' fontFamily='cursive'>
+              <Text className={styles.logo} fontSize='4xl' fontFamily='cursive'>
                 Back2Pack
               </Text>
             </Box>

@@ -127,7 +127,7 @@ const NewTripForm = ({ onClose, onAddTrip, setSelectedImage = () => { } }) => {
                   <span
                     key={index}
                     onClick={() => setRating(index + 1)}
-                    className={style.star}
+                    className={`${style.star}${index < rating ? ` ${style.active}` : ''}`}
                   >
                     {index < rating ? "★" : "☆"}
                   </span>

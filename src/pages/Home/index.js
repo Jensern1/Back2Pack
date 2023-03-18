@@ -9,7 +9,6 @@ import AddBtn from "../../components/atoms/addBtn/AddBtn.js";
 import SortBtn from "../../components/atoms/sortBtn/SortBtn.js";
 import NewTripForm from "../../components/molecules/newTripForm/NewTripForm.js";
 
-
 const config = {
   apiKey: "AIzaSyBPHhZjnX7r2RXODrTjB47cNh2RIGIJnbg",
   authDomain: "pu-backpakking.firebaseapp.com",
@@ -114,24 +113,34 @@ function Home() {
   };
 
   function compareByASCPrice(trip1, trip2) {
-    return trip1.price - trip2.price;
-  }
-
-  function compareByDESCPrice(trip1, trip2) {
     return trip2.price - trip1.price;
   }
 
+  function compareByDESCPrice(trip1, trip2) {
+    return trip1.price - trip2.price;
+  }
+
   function compareByASCRating(trip1, trip2) {
-    return trip1.rating - trip2.rating;
+    return trip2.rating - trip1.rating;
   }
 
   function compareByDESCRating(trip1, trip2) {
-    return trip2.rating - trip1.rating;
+    return trip1.rating - trip2.rating;
+  }
+
+  function compareByASCLength(trip1, trip2) {
+    return trip2.length - trip1.length;
+  }
+
+  function compareByDESCLength(trip1, trip2) {
+    return trip1.length - trip2.length;
   }
 
   const handleSort = (sortType) => {
     let sortedTurer = [];
-    if (sortType == 1) {
+    if (sortType == 0) {
+      sortedTurer = originalTurer;
+    } else if (sortType == 1) {
       sortedTurer = [...turer].sort(compareByASCPrice);
     } else if (sortType == 2) {
       sortedTurer = [...turer].sort(compareByDESCPrice);
@@ -139,6 +148,10 @@ function Home() {
       sortedTurer = [...turer].sort(compareByASCRating);
     } else if (sortType == 4) {
       sortedTurer = [...turer].sort(compareByDESCRating);
+    } else if (sortType == 5) {
+      sortedTurer = [...turer].sort(compareByASCLength);
+    } else if (sortType == 6) {
+      sortedTurer = [...turer].sort(compareByDESCLength);
     }
     setSortType(sortType);
     setTurer(sortedTurer);

@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Sofachrome';
+    src: local('Sofachrome'),
+         /* url('./fonts/YourFontFileName.woff2') format('woff2'),
+         url('./fonts/YourFontFileName.woff') format('woff'),
+         url('./fonts/YourFontFileName.ttf') format('truetype'), */
+         url('./fonts/sofachrome_rg.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
