@@ -24,6 +24,15 @@
     text-size-adjust: 20;
   }
 
+  .addBtn {
+    transition: none !important;
+  }
+
+  .addBtn:hover {
+    background-color: teal !important;  
+    transform: none !important;
+  }
+
   Button {
     color: white;
     font-size: 24px;
@@ -31,7 +40,12 @@
     padding: 15px;
     display: flex;
     align-items: center;
-    
+    transition: transform 0.2s; /* Add a transition effect */
+  }
+  
+  Button:hover {
+    background-color: teal; /* Remove the background color */
+    transform: scale(1.2); /* Add a slight scale-up effect */
   }
 
   Input {

@@ -13,7 +13,6 @@ function User({ turer }) {
   return (
     <>
       <Navbar></Navbar>
-      <p>Hello User!</p>
       <ProfileDisplay
         name={name}
         email={email}

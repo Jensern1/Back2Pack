@@ -1,3 +1,4 @@
+import { systemProps } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import style from './Trip.module.scss';
 
@@ -21,6 +22,7 @@ function Trip({
 
   const handleDelete = () => {
     onDelete(id);
+    console.log("ID = " + id);
   };
 
   return (

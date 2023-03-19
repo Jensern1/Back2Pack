@@ -81,10 +81,11 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
               w='50%'
             />
             <Box ml='5'>
-              <AddBtn
+              <AddBtn className={styles.addBtn}
                 colorScheme='teal'
                 aria-label='addBtn'
                 size='lg'
+                transition="none"
                 icon={<AiOutlinePlus />}
                 onClick={() => onAddTrip(true)}
               />
