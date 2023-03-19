@@ -12,7 +12,7 @@ function Feed(props) {
       <div className={style.container}>
         {trips.map((trip, index) => (
           <Trip
-            key={trip.id}
+            key={index}
             id={trip.id}
             username={trip.username}
             tripName={trip.tripName}

@@ -26,12 +26,26 @@ const collectionUsers = collection(db, "bruker");
 
 function Home({ turer, setTurer }) {
   const [originalTurer, setOriginalTurer] = useState([turer]);
+  // const [turer, setTurer] = useState([]);
   const [brukere, setBrukere] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortType, setSortType] = useState(0);
 
-  //Retrieve all users from firebase
+
   useEffect(() => {
+    getDocs(collectionTrips)
+      .then((snapshot) => {
+        const tripsData = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setOriginalTurer(tripsData);
+        setTurer(tripsData);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
     getDocs(collectionUsers)
       .then((snapshot) => {
         const brukerData = snapshot.docs.map((doc) => ({

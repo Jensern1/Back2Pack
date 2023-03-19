@@ -14,9 +14,8 @@ function Trip({
   currentUserID,
   onDelete,
 }) {
-  const normalizedRating = Math.min(5, Math.max(0, rating));
+  const normalizedRating = Math.min(5, Math.max(0, Number(rating) || 0)); // Make sure rating is a number
   const admins = require('../../../admins.json');
-  // console.log(currentUserID + ' : ' + admins);
   const canDelete =
     creatorID === currentUserID || admins.includes(currentUserID);
 
@@ -49,16 +48,18 @@ function Trip({
             <div className={style['trip-rating']}>
               <p>Rating: </p>
               <div className={style['trip-rating-stars']}>
-                {[...Array(normalizedRating)].map((_, index) => (
-                  <span key={index} className={style['star']}>
-                    &#9733;
-                  </span>
-                ))}
-                {[...Array(5 - normalizedRating)].map((_, index) => (
-                  <span key={index} className={style['star']}>
-                    &#9734;
-                  </span>
-                ))}
+                {normalizedRating >= 0 &&
+                  [...Array(normalizedRating)].map((_, index) => (
+                    <span key={index} className={style['star']}>
+                      &#9733;
+                    </span>
+                  ))}
+                {normalizedRating >= 0 &&
+                  [...Array(5 - normalizedRating)].map((_, index) => (
+                    <span key={index} className={style['star']}>
+                      &#9734;
+                    </span>
+                  ))}
               </div>
             </div>
           </div>
