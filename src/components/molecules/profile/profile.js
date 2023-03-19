@@ -4,7 +4,7 @@ import { IconButton, Icon } from '@chakra-ui/react';
 import {BiEdit} from 'react-icons/bi';
 import MyTripDisplay from '../myTrips/myTrips';
 
-const ProfileDisplay = ({ name, email, profilePicture }) => {
+const ProfileDisplay = ({ name, email, profilePicture, turer }) => {
   return (
     <div className="profile-display-container">
       <div className="profile-info-box">
@@ -23,7 +23,7 @@ const ProfileDisplay = ({ name, email, profilePicture }) => {
       </div>
       <div className="mytrip-display">
         <h2 className="mytrip-header">Mine turer</h2>
-        <MyTripDisplay/>
+        <MyTripDisplay turer={turer}/>
       </div>
     </div>
   );

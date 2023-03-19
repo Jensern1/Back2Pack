@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from '../../components/molecules/navbar/Navbar.js';
-import { UserContext } from "../../../contexts/UserContext.js";
-import ProfileDisplay from './components/molecules/profile/profile.js';
+import { UserContext } from "../../contexts/UserContext.js";
+import ProfileDisplay from '../../components/molecules/profile/profile.js';
 //Importert profilbilde, bør kunne hentes
-import profilePicture from "./components/molecules/profile/strand.jpg"
+import profilePicture from "../../assets/paris.jpg"
 
-const { name, email } = useContext(UserContext);
 
-function User() {
+
+function User({ turer }) {
+  const { name, email } = useContext(UserContext);
+
   return (
     <>
       <Navbar></Navbar>
@@ -16,6 +18,7 @@ function User() {
         name={name}
         email={email}
         profilePicture={profilePicture}
+        turer={turer}
       />
     </>
   );
