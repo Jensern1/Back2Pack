@@ -7,6 +7,32 @@ const SortBtn = ({ setSortTypeApp }) => {
   const [displayedText, setDisplayedText] = useState("Sort Trips");
   const textColor = useColorModeValue("black", "black");
 
+  const handleSortType = (sortType) => {
+    if (sortType == 0) {
+      setSortTypeApp(0);
+      setDisplayedText("Sort Trips");
+    } else if (sortType == 1) {
+      setSortTypeApp(1);
+      setDisplayedText("Pris høy-lav");
+    } else if (sortType == 2) {
+      setSortTypeApp(2);
+      setDisplayedText("Pris lav-høy");
+    } else if (sortType == 3) {
+      setSortTypeApp(3);
+      setDisplayedText("Rating høy-lav");
+    } else if (sortType == 4) {
+      setSortTypeApp(4);
+      setDisplayedText("Rating lav-høy");
+    } else if (sortType == 5) {
+      setSortTypeApp(5);
+      setDisplayedText("Lengde høy-lav");
+    } else if (sortType == 6) {
+      setSortTypeApp(6);
+      setDisplayedText("Lengde lav-høy");
+    }
+    setOpen(false);
+  }
+
   const handleOpen = () => {
     setOpen(!open);
   };
