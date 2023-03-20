@@ -30,6 +30,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
   const [phone] = useMediaQuery('(max-width: 800px)');
   const { logOut, name } = useContext(UserContext);
   const { toggleColorMode, colorMode } = useColorMode();
+  const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
     <Box className={styles.navbar}>
@@ -102,7 +103,7 @@ const Navbar = ({ onAddTrip, searchInput, handleSearch }) => {
               <AiOutlineUser size={32} color='#1e212d' />
             </Box>
             <Text fontSize='xl' fontWeight='bold'>
-              {name}
+              {formattedName}
             </Text>
             <Button ml={10} variant='outline' onClick={() => logOut()}>
               Logout
