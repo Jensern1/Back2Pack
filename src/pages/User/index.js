@@ -16,7 +16,7 @@ function User({ turer }) {
       <ProfileDisplay
         name={name}
         email={email}
-        profilePicture={profilePicture}
+        //profilePicture={profilePicture}
         turer={turer}
       />
     </>

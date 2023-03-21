@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './MyTrips.scss';
 import Feed from '../../molecules/feed/Feed';
 import { IconButton, Icon } from '@chakra-ui/react';
 import { BiEdit } from 'react-icons/bi';
