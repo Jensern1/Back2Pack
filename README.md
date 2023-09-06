@@ -8,4 +8,4 @@ Features - users can:
 * Create own trips with a name/title, description, price, length (in days), rating (1 to 5 stars), as well as an image.
 * Toggle between light/dark mode
 * Switch home-page and profile-page
-* Browse their own trips as well as delete this at will
+* Browse their own trips as well as delete these at will
