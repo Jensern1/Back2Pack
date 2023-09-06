@@ -1,6 +1,6 @@
 # Back2Pack
 Back2Pack is a simple website for backpackers that want to publish their trips for others to see, as well as get inspiration from other peoples trips. 
-Written using React + Javascript, built using Yarn. 
+Written using React + Javascript with Firebase backend, built using Yarn.  
 Features - users can: 
 * Create a profile and log in
 * Browse other users' trips
