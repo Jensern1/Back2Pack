@@ -9,4 +9,12 @@ Features - users can:
 * Toggle between light/dark mode
 * Switch home-page and profile-page
 * Browse their own trips as well as delete these at will
->>>>>>> 819c47b19512960e6aba48f58a355f7ce7259c9e
+
+# Running the project
+The project can be run with the following commands:
+ ~~~
+cd .\BackPack\
+yarn
+yarn start
+ ~~~
+
